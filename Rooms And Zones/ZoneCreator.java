@@ -5,7 +5,7 @@ public abstract class ZoneCreator
 		Zone z = makeZone();
 		Room[][] rooms = z.getRooms();
 		
-		linkDoors(rooms);
+		//linkDoors(rooms);
 		
 		return z;
 	}
@@ -16,7 +16,8 @@ public abstract class ZoneCreator
 	public void linkDoors(Room[][] rooms)
 	{
 		int i , j, k;
-		Door[] doors;
+		Door[] doors = null;
+		i = j = k = 0;
 				
 		for (i = 0; i < 3; i++)
 			for (j = 0; j < 3; j++)
@@ -25,27 +26,43 @@ public abstract class ZoneCreator
 				doors = new Door[6];
 				
 				//e
-				if ( (j - 1) >= 0 )
-					doors[k++] = new Door("EAST", rooms[i][j-1], true);
+				if ( (j + 1) <= 2 )
+				{
+					doors[k++] = new Door("EAST", rooms[i][j+1], true);
+				}
 				else
+				{
 					doors[k++] = new Door("EAST", null, false);
+				}
 				
 				//w
-				if ( (j + 1) <= 2 )
-					doors[k++] = new Door("WEST", rooms[i][j+1], true);
+				if ( (j - 1) >= 0 )
+				{
+					doors[k++] = new Door("WEST", rooms[i][j-1], true);
+				}
 				else
+				{
 					doors[k++] = new Door("WEST", null, false);
+				}
 				
 				//n
 				if ( (i - 1) >= 0 )
+				{
 					doors[k++] = new Door("NORTH", rooms[i-1][j], true);
+				}
 				else
+				{
 					doors[k++] = new Door("NORTH", null, false);
+				}
 				//s
 				if ( (i + 1) <= 2 )
+				{
 					doors[k++] = new Door("SOUTH", rooms[i+1][j], true);
+				}
 				else
+				{
 					doors[k++] = new Door("SOUTH", null, false);
+				}
 				
 				
 				
@@ -56,7 +73,6 @@ public abstract class ZoneCreator
 				
 				rooms[i][j].setDoors(doors);
 			}
-			
 			
 	}
 }
