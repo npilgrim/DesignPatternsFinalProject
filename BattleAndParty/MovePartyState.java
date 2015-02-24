@@ -25,6 +25,18 @@ public class MovePartyState implements GameState
 	{
 		System.out.println("There's nobody to attack here.");
 	}
+	
+	@Override
+	public void confirmExit()
+	{
+		System.out.println("You haven't chosen to quit yet.");
+	}
+	
+	@Override
+	public void playAgain()
+	{
+		System.out.println("You haven't finished the current game!");
+	}
 
 	@Override
 	public void endGame() 

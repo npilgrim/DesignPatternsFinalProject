@@ -157,9 +157,9 @@ public class GameBattleState implements GameState {
 				
 			}// end for loop
 		} //end while loop
-		
+		kb.nextLine();
 		kb.close();
-		game.setState(game.getEndState());
+		game.setState(game.getPlayAgainState());
 		if(game.party.size() == 0)
 		{
 			System.out.println("Your entire has been defeated...");
@@ -172,6 +172,18 @@ public class GameBattleState implements GameState {
 		{
 			System.out.println("No contest.");
 		}
+	}
+   
+   @Override
+   public void confirmExit()
+   {
+      System.out.println("You can't quit yet!");
+   }
+	
+	@Override
+	public void playAgain()
+	{
+		System.out.println("You haven't finished the current game!");
 	}
 
 	@Override

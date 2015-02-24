@@ -25,6 +25,19 @@ public class EndGameState implements GameState {
 	{
 		System.out.println("There's no one to attack right now.");
 	}
+	
+	@Override
+	public void confirmExit()
+	{
+		System.out.println("Too late! You already quit!");
+	}
+	
+	@Override
+	public void playAgain()
+	{
+		System.out.println("Too late! You already quit!");
+	}
+
 
 	@Override
 	public void endGame()

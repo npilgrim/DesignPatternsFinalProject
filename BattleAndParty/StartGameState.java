@@ -24,6 +24,18 @@ public class StartGameState implements GameState
 	{
 		System.out.println("Game still loading. Patience, young padawan.");
 	}
+	
+	@Override
+	public void confirmExit()
+	{
+		System.out.println("You just started the game and haven't chosen to quit yet.");
+	}
+	
+	@Override
+	public void playAgain()
+	{
+		System.out.println("You haven't finished the current game!");
+	}
 
 	@Override
 	public void endGame()

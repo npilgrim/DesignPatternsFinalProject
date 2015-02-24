@@ -46,7 +46,12 @@ public class GameTest
 		
 		Game tester = new Game(goodGuys, badGuys);
 		tester.setState(tester.getBattleState());
-		tester.engageBattle(); 
+		while(tester.getState().equals(tester.getBattleState()))
+		{
+			tester.engageBattle(); 
+			if(tester.getState().equals(tester.getPlayAgainState()))
+				tester.playAgain();
+		}
 		tester.endGame();
 	}
 }
