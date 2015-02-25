@@ -1,16 +1,16 @@
 import java.util.*;
 
-public class ForestZoneCreator extends ZoneCreator
+public class CastleGroundsZoneCreator extends ZoneCreator
 {
 	private RoomCreator roomCreator;
 	
 	public Zone makeZone()
 	{
-		roomCreator = new ForestRoomCreator();
+		roomCreator = new CastleGroundsCreator();
 		int num1, num2;
 		Random rand = new Random();
 		Room[][] rooms = new Room[3][3];
-		Zone ret = new ForestZone();
+		Zone ret = new CastleGroundsZone();
 		int start_r, start_c;
 		int end_r, end_c;
 		//randomize start
@@ -23,7 +23,7 @@ public class ForestZoneCreator extends ZoneCreator
 			num2 = (rand.nextInt() % 2 - 0) + 1;
 		}
 		
-		rooms[num1][num2] = roomCreator.createRoom("startingRoom");
+		rooms[num1][num2] = roomCreator.createRoom("groundstoforest");
 		start_r = num1;
 		start_c = num2;
 		
@@ -36,7 +36,7 @@ public class ForestZoneCreator extends ZoneCreator
 			num1 = (rand.nextInt() % 2 - 0) + 1;
 			num2 = (rand.nextInt() % 2 - 0) + 1;
 		}
-		rooms[num1][num2] = roomCreator.createRoom("forestToGrounds");
+		rooms[num1][num2] = roomCreator.createRoom("groundstocastle");
 		end_r = num1;
 		end_c = num2;
 		//fill in the rest
@@ -45,11 +45,7 @@ public class ForestZoneCreator extends ZoneCreator
 		for (i = 0; i < 3; i++)
 			for (j = 0; j < 3; j++)
 				if (rooms[i][j] == null)
-					rooms[i][j] = makeRandomRoom();
-		
-		linkDoors(rooms);
-		
-		
+					rooms[i][j] = makeRandomRoom();		
 		
 		ret.setRooms(rooms);
 		ret.setStartingRoom(rooms[start_r][start_c]);
@@ -62,14 +58,12 @@ public class ForestZoneCreator extends ZoneCreator
 	{
 		Random r = new Random();
 		
-		int num = (r.nextInt() % 2 - 0) + 1;
+		int num = (r.nextInt() % 1 - 0) + 1;
 		
 		if ( num == 0 )
-			return roomCreator.createRoom("heavilyWooded");
+			return roomCreator.createRoom("garden");
 		if ( num == 1 )
-			return roomCreator.createRoom("clearedWood");
-		if ( num == 2)
-			return roomCreator.createRoom("woodedPath");
+			return roomCreator.createRoom("courtyard");
 		else
 			return roomCreator.createRoom("");
 			

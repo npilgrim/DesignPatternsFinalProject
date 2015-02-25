@@ -4,7 +4,8 @@ public class RoomTester
 {
 	public static void main(String[] args)
 	{
-		ZoneCreator z = new ForestZoneCreator();
+		//ZoneCreator z = new ForestZoneCreator();
+		ZoneCreator z = new CastleGroundsZoneCreator();
 		Zone zone = z.createZone();
 		Scanner in = new Scanner(System.in);
 		

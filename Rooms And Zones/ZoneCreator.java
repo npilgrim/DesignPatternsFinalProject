@@ -5,7 +5,7 @@ public abstract class ZoneCreator
 		Zone z = makeZone();
 		Room[][] rooms = z.getRooms();
 		
-		//linkDoors(rooms);
+		linkDoors(rooms);
 		
 		return z;
 	}

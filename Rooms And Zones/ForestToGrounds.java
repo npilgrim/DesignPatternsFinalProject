@@ -2,10 +2,9 @@ public class ForestToGrounds extends Room
 {
 	public ForestToGrounds()
 	{
-		super("A great view.",
-			"You have arrived in a room with a great view. " +
+		super("A path to the castle grounds.",
+			"The forest lies near. " +
 			"You can see a castle in the distance and " + 
-			"nearby lies the castle grounds. Do you dare " + 
-			"venture closer?");		
+			"nearby lies the castle grounds.");		
 	}
 }
