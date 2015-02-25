@@ -38,12 +38,10 @@ public class PlayAgainState implements GameState
 			if(!input.equalsIgnoreCase("yes") && !input.equalsIgnoreCase("no"))
 				throw new Exception();
 		}
-   	catch (Exception e)
+		catch (Exception e)
 		{
 			System.out.println("Invalid choice. Try again.");
-			kb.nextLine();
 		}
-		kb.nextLine();
 		kb.close();
 		if(input.equalsIgnoreCase("yes"))
 			game.setState(game.getBattleState());

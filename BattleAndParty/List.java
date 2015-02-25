@@ -39,7 +39,6 @@ public class List
 		}
 	}
 	
-	@SuppressWarnings({ "rawtypes" })
 	public void remove(Object data)
 	{
 		Node cur, result = null;

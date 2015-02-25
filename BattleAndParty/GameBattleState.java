@@ -4,6 +4,7 @@ import java.util.Random;
 public class GameBattleState implements GameState {
 
 	private Game game;
+	//private Party enemies;
 	
 	public GameBattleState(Game game)
 	{
@@ -24,7 +25,6 @@ public class GameBattleState implements GameState {
 	public void engageBattle() 
 	{
 		Scanner kb = new Scanner(System.in);
-		String answer = "";
 		boolean quit = false;
 		Random random = new Random();
 		Character[] characterOrder = setTurnOrder(game.party, game.enemies);
@@ -34,7 +34,7 @@ public class GameBattleState implements GameState {
 		
 		while (game.enemies.size() > 0 && game.party.size() > 0 && !quit) 
 		{
-			for (i = 0; i < characterOrder.length && game.enemies.size() > 0; i++)
+			for (i = 0; i < characterOrder.length && game.enemies.size() > 0 && !quit; i++)
 			{
 				if (characterOrder[i].playable() && !quit) 
 				{
@@ -44,6 +44,7 @@ public class GameBattleState implements GameState {
 					try 
 					{
 						option = kb.nextInt();
+						kb.nextLine();
 						if (option != 1 && option != 2) 
 						{
 							throw new Exception();
@@ -103,25 +104,10 @@ public class GameBattleState implements GameState {
 						break;
 					
 					case 2:
-						System.out.println("\nAre you sure you want to quit? (yes/no)");
-						try 
-						{
-							kb.nextLine();
-							answer = kb.nextLine();
-							if (!answer.equalsIgnoreCase("yes") && !answer.equalsIgnoreCase("no"))
-								throw new Exception();
-						} 
-						catch (Exception e)
-						{
-							System.out.println("Invalid exit option. Try again.");
-							kb.nextLine();
-						}
-
-						if (answer.equals("yes")) 
-						{
-							game.setState(game.getEndState());
-							quit = true;
-						}
+						System.out.println("You run away in shame...");
+						game.setState(game.getPlayAgainState());
+						quit = true;
+						game.playAgain();
 
 						break;
 					}// end switch
@@ -157,20 +143,22 @@ public class GameBattleState implements GameState {
 				
 			}// end for loop
 		} //end while loop
-		kb.nextLine();
 		kb.close();
-		game.setState(game.getPlayAgainState());
-		if(game.party.size() == 0)
-		{
-			System.out.println("Your entire has been defeated...");
-		}
-		else if(game.enemies.size() == 0)
-		{
-			System.out.println("Victory!");
-		}
-		else
-		{
-			System.out.println("No contest.");
+		if(!game.getState().equals(game.getPlayAgainState()) && !quit)
+		{	
+			game.setState(game.getPlayAgainState());
+			if(game.party.size() == 0)
+			{
+				System.out.println("Your entire has been defeated...");
+			}
+			else if(game.enemies.size() == 0)
+			{
+				System.out.println("Victory!");
+			}
+			else
+			{
+				System.out.println("No contest.");
+			}
 		}
 	}
    
