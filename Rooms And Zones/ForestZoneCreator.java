@@ -47,9 +47,8 @@ public class ForestZoneCreator extends ZoneCreator
 				if (rooms[i][j] == null)
 					rooms[i][j] = makeRandomRoom();
 		
-		linkDoors(rooms);
-		
-		
+		//linkDoors(rooms);
+		//linked in super	
 		
 		ret.setRooms(rooms);
 		ret.setStartingRoom(rooms[start_r][start_c]);

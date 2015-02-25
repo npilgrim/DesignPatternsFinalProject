@@ -13,7 +13,7 @@ public class RoomTester
 		
 		String input = "";		
 		
-		System.out.println("\n*****Zone movement demo******");
+		System.out.println("\n*****Zone movement demo******\n");
 		
 		while (true)
 		{
