@@ -33,6 +33,11 @@ public abstract class Room
 			return null;
 	}
 	
+	public void setDoor(int i, Door door)
+	{
+		doors[i] = door;
+	}
+	
 	public void setDoors(Door[] doors)
 	{
 		this.doors = doors;
