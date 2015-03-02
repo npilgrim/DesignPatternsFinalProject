@@ -1,16 +1,16 @@
 import java.util.*;
 
-public class CastleZoneCreator extends ZoneCreator
+public class DungeonZoneCreator extends ZoneCreator
 {
 	private RoomCreator roomCreator;
 	
 	public Zone makeZone()
 	{
-		roomCreator = new CastleRoomCreator();
+		roomCreator = new DungeonRoomCreator();
 		int num1, num2;
 		Random rand = new Random();
 		Room[][] rooms = new Room[3][3];
-		Zone ret = new CastleZone();
+		Zone ret = new DungeonZone();
 		int start_r, start_c;
 		int end_r, end_c;
 		//randomize start
@@ -23,7 +23,7 @@ public class CastleZoneCreator extends ZoneCreator
 			num2 = (rand.nextInt() % 2 - 0) + 1;
 		}
 		
-		rooms[num1][num2] = roomCreator.createRoom("castletogrounds");
+		rooms[num1][num2] = roomCreator.createRoom("dungeontocastle");
 		start_r = num1;
 		start_c = num2;
 		
@@ -36,7 +36,7 @@ public class CastleZoneCreator extends ZoneCreator
 			num1 = (rand.nextInt() % 2 - 0) + 1;
 			num2 = (rand.nextInt() % 2 - 0) + 1;
 		}
-		rooms[num1][num2] = roomCreator.createRoom("castletodungeon");
+		rooms[num1][num2] = roomCreator.createRoom("tortureroom");
 		end_r = num1;
 		end_c = num2;
 		//fill in the rest
@@ -56,8 +56,11 @@ public class CastleZoneCreator extends ZoneCreator
 
 	public Room makeRandomRoom()
 	{
-		Random r = new Random();
+		//Random r = new Random();
 		
+		return roomCreator.createRoom("dungeonhall");
+		
+		/*
 		int num = (r.nextInt() % 2 - 0) + 1;
 		
 		if ( num == 0 )
@@ -68,11 +71,7 @@ public class CastleZoneCreator extends ZoneCreator
 			return roomCreator.createRoom("chamberroom");
 		else
 			return roomCreator.createRoom("");
+			*/
 			
-	}
-	
-	public int getID()
-	{
-		return 2;
 	}
 }

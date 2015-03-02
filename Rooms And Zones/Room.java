@@ -3,11 +3,13 @@ public abstract class Room
 	private String name;
 	private String description;
 	private Door[] doors;
+	private Inventory inventory;
 	
 	public Room(String name, String description)
 	{
 		this.name = name;
 		this.description = description;
+		this.inventory = new Inventory(name);
 	}
 	
 	public String getName()
@@ -18,8 +20,8 @@ public abstract class Room
 	public String getDescription()
 	{	
 		String ret = name + "\n" + description + "\n";
-		ret += getDoorNames();
-		
+		ret += getDoorNames() + "\n";
+		ret += inventory.getDescription();
 		
 		return ret;
 	}
@@ -68,5 +70,15 @@ public abstract class Room
 		}
 		
 		return ret;
+	}
+	
+	public Item getItem(int i)
+	{
+		return inventory.getItem(i);
+	}
+	
+	public void putItem(Item i)
+	{
+		inventory.putItem(i);
 	}
 }

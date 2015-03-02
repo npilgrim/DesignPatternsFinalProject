@@ -1,0 +1,106 @@
+import java.util.*;
+
+public class ItemCreator
+{
+	private static ItemCreator creator = null;
+	private ArmorCreator ac;
+	private WeaponCreator wc;
+	
+	private ItemCreator()
+	{
+		ac = new ArmorCreator();
+		wc = new WeaponCreator();
+		
+	}
+	
+	public static ItemCreator getCreator()
+	{
+		if ( creator == null)
+			creator = new ItemCreator();
+		
+		return creator;
+	}
+	
+	public Item makeRandom(int zone)
+	{
+		int num;
+		Random rand = new Random();
+		
+		num = (rand.nextInt() % (100 - 0 + 1)) + 0;
+		
+		if ( num < 70 )
+			return null;
+		
+		else if ( num >= 50 && num < 80)
+			return makeMisc(zone);
+		else if ( num >= 80 && num < 90)
+			return makeRandomWeapon();
+		else
+			return makeRandomArmor();
+	}
+	
+	
+	public Item makeRandomWeapon()
+	{
+		Random rand = new Random();
+		int max, min, num1, num2;
+		Weapon weap;
+		
+		max = 1;
+		min = 0;
+		
+		num1 = Math.abs((rand.nextInt() % (max - min  + 1)) + min);
+		num2 = Math.abs((rand.nextInt() % (2 - 0  + 1)) + 0);
+		
+		if ( num1 >= 95 )
+			weap = wc.makeItem("phaser", num2);
+		else if ( num1 > 70 && num1 < 95)
+			weap = wc.makeItem("sword", num2);
+				else if ( num1 > 40 && num1 <= 70)
+			weap = wc.makeItem("staff", num2);
+		else
+			weap = wc.makeItem("stick", num2);
+		
+		//System.out.println(weap.getDescription());
+		
+		return weap;	
+	}
+	
+	public Item makeRandomArmor()
+	{
+		Random rand = new Random();
+		int max, min, num1, num2;
+		Armor arm;
+		
+		max = 1;
+		min = 0;
+		
+		num1 = Math.abs((rand.nextInt() % (max - min  + 1)) + min);
+		num2 = Math.abs((rand.nextInt() % (2 - 0  + 1)) + 0);
+		
+		if ( num1 >= 95 )
+			arm = ac.makeItem("forcefield", num2);
+		else if ( num1 > 70 && num1 < 95)
+			arm = ac.makeItem("platesuit", num2);
+				else if ( num1 > 40 && num1 <= 70)
+			arm = ac.makeItem("shield", num2);
+		else
+			arm = ac.makeItem("paperhat", num2);
+		
+		return arm;	
+	}
+	
+	public Item makeMisc(int zone)
+	{
+		if ( zone == 0 )
+			return new Stone();
+		if ( zone == 1)
+			return new Flower();
+		if (zone == 2)
+			return new Candle();
+		else
+			return new Skull();
+	}
+	
+	
+}

@@ -68,4 +68,9 @@ public class CastleGroundsZoneCreator extends ZoneCreator
 			return roomCreator.createRoom("");
 			
 	}
+	
+	public int getID()
+	{
+		return 1;
+	}
 }
