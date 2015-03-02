@@ -9,7 +9,7 @@ public abstract class Room
 	{
 		this.name = name;
 		this.description = description;
-		this.inventory = new Inventory(name);
+		this.inventory = new Inventory("room");
 	}
 	
 	public String getName()
