@@ -65,4 +65,42 @@ public class Party implements Iterable<Character>
 		System.out.println();
 	}
 	
+	public PartyMemento saveParty()
+	{
+		return new PartyMemento(this);
+	}
+	
+	public void restoreParty(PartyMemento pm)
+	{
+		this.party.clear();
+		
+		for(Character c : pm.getSavedParty())
+		{
+			party.add(c.cloneCharacter());
+		}
+	}
+	
+/*
+ * Memento class to restore party state after battles
+ */
+	public static class PartyMemento
+	{
+		private final Party partyState;
+		
+		public PartyMemento(Party party)
+		{
+			partyState = new Party();
+			
+			for(Character c : party)
+			{
+				partyState.addCharacter(c.cloneCharacter());
+			}
+		}
+		
+		public Party getSavedParty()
+		{
+			return this.partyState;
+		}
+	}
+	
 }

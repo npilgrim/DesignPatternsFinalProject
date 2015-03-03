@@ -1,19 +1,25 @@
+import java.util.Scanner;
+
 public class Game 
 {
-	GameState startState;
-	GameState moveState;
-	GameState battleState;
-	GameState confirmState;
-	GameState playAgainState;
-	GameState endState;
+	static Scanner kb = new Scanner(System.in);
 	
-	GameState current;
-	Party party;
+	private GameState startState;
+	private GameState moveState;
+	private GameState battleState;
+	private GameState confirmState;
+	private GameState playAgainState;
+	private GameState endState;
+	
+	private GameState current;
+	private Party party;
+	private Party.PartyMemento savedParty;
+	private Party enemies;
 	
 	// strictly for testing purposes
-	Party enemies;
+	static Party.PartyMemento enemySave;
 	
-	public Game(Party party, Party enemies)
+	public Game(Party party)
 	{
 		startState = new StartGameState(this);
 		moveState = new MovePartyState(this);
@@ -25,6 +31,26 @@ public class Game
 		setState(startState);
 		
 		this.party = party;
+		this.savedParty = party.saveParty();
+	}
+	
+	public Party getParty()
+	{
+		return this.party;
+	}
+	
+	public Party.PartyMemento getSavedParty()
+	{
+		return this.savedParty;
+	}
+	
+	public Party getEnemy()
+	{
+		return this.enemies;
+	}
+	
+	public void setEnemy(Party enemies)
+	{
 		this.enemies = enemies;
 	}
 	
@@ -76,7 +102,15 @@ public class Game
 	}
 	public void playAgain()
 	{
+		party.restoreParty(savedParty);
+		enemies.restoreParty(enemySave); // TODO remove this line after testign
 		current.playAgain();
+	}
+	public void confirmExit()
+	{
+		party.restoreParty(savedParty);
+		enemies.restoreParty(enemySave); // TODO remove this line after testing
+		current.confirmExit();
 	}
 	public void endGame()
 	{

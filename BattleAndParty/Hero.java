@@ -21,4 +21,15 @@ public class Hero extends Character
 			return h.getName().compareTo(this.getName());
 		}
 	}
+	
+	// TODO abstract this method; concrete implementation in concrete classes
+	public Character cloneCharacter()
+	{
+		Character c = new Hero();
+		
+		c.setName(getName());
+		c.setSpeed(getSpeed());
+		
+		return c;
+	}
 }

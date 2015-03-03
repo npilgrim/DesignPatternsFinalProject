@@ -22,4 +22,14 @@ public class Monster extends Character
 			return h.getName().compareTo(this.getName());
 		}
 	}
+	
+	public Character cloneCharacter()
+	{
+		Character c = new Monster();
+		
+		c.setName(getName());
+		c.setSpeed(getSpeed());
+		
+		return c;
+	}
 }

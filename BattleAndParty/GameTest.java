@@ -44,7 +44,10 @@ public class GameTest
 		
 		System.out.println();
 		
-		Game tester = new Game(goodGuys, badGuys);
+		Game tester = new Game(goodGuys);
+		tester.setEnemy(badGuys);
+		Game.enemySave = badGuys.saveParty();
+		//tester.getBattleState().setEnemy(badGuys);
 		tester.setState(tester.getBattleState());
 		while(tester.getState().equals(tester.getBattleState()))
 		{

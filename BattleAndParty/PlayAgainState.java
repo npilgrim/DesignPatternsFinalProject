@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class PlayAgainState implements GameState
 {
 	private Game game;
@@ -28,23 +26,28 @@ public class PlayAgainState implements GameState
 	
 	@Override
 	public void playAgain()
-	{
-		Scanner kb = new Scanner(System.in);		
+	{		
 		String input = "";
 		System.out.println("Would you like to play again? (yes/no)");
+		
 		try
 		{
-			input = kb.nextLine();
-			if(!input.equalsIgnoreCase("yes") && !input.equalsIgnoreCase("no"))
-				throw new Exception();
+			input = Game.kb.nextLine();
+			while(!input.equalsIgnoreCase("yes") && !input.equalsIgnoreCase("no"))
+			{
+				System.out.println("Invalid choice. Try again.");
+				input = Game.kb.nextLine();
+			}
 		}
 		catch (Exception e)
 		{
-			System.out.println("Invalid choice. Try again.");
+			System.out.println("Exception during playAgain: " + e);
 		}
-		kb.close();
+		
 		if(input.equalsIgnoreCase("yes"))
+		{
 			game.setState(game.getBattleState());
+		}
 		else
 			game.setState(game.getEndState());
 	}

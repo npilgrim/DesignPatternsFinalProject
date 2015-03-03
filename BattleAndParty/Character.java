@@ -1,5 +1,6 @@
 import java.util.*;
 
+@SuppressWarnings("rawtypes")
 public abstract class Character implements Comparable
 {
 	private int speed;
@@ -21,6 +22,8 @@ public abstract class Character implements Comparable
 		
 		this.playable = playable;
 	}
+	
+	public abstract Character cloneCharacter();
 	
 	public boolean playable() 
 	{
@@ -114,4 +117,5 @@ public abstract class Character implements Comparable
 		
 		return false;
 	}
+	
 }

@@ -76,4 +76,10 @@ public class List
 			size--;
 		}
 	}
+	
+	public void clear()
+	{
+		this.head = null;
+		this.size = 0;
+	}
 }
