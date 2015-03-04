@@ -4,6 +4,7 @@ public abstract class Room
 	private String description;
 	private Door[] doors;
 	private Inventory inventory;
+	private Party monsters;
 	
 	public Room(String name, String description)
 	{
@@ -15,6 +16,11 @@ public abstract class Room
 	public String getName()
 	{
 		return name;
+	}
+	
+	public void setMonsterParty(Party party)
+	{
+		this.monsters = party;
 	}
 	
 	public String getDescription()

@@ -51,12 +51,14 @@ public class Inventory
 		return item;
 	}
 	
-	public void putItem(Item i)
+	public void putItem(Item i, boolean silent)
 	{
 		if (i == null)
 			return;
 		
-		System.out.println("You placed " + i.getName() + " into the " + name);
+		if (silent != true)
+			System.out.println("You placed " + i.getName() + " into the " + name);
+		
 		bag.add(i);
 	}
 }

@@ -77,8 +77,8 @@ public abstract class Room
 		return inventory.getItem(i);
 	}
 	
-	public void putItem(Item i)
+	public void putItem(Item i, boolean silent)
 	{
-		inventory.putItem(i);
+		inventory.putItem(i, silent);
 	}
 }

@@ -13,9 +13,4 @@ public abstract class MiscItems implements Item
 		return "misc";
 	}
 	
-	public boolean equipable()
-	{
-		return false;
-	}
-	
 }
