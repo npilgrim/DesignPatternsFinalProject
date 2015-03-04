@@ -28,10 +28,10 @@ public class ItemCreator
 		
 		num = (rand.nextInt() % (100 - 0 + 1)) + 0;
 		
-		if ( num < 70 )
+		if ( num < 60 )
 			return null;
 		
-		else if ( num >= 50 && num < 80)
+		else if ( num >= 60 && num < 80)
 			return makeMisc(zone);
 		else if ( num >= 80 && num < 90)
 			return makeRandomWeapon();

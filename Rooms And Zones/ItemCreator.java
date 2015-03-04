@@ -2,7 +2,7 @@ import java.util.*;
 
 public class ItemCreator
 {
-	private static ItemCreator creator = null;
+	protected static ItemCreator creator = null;
 	private ArmorCreator ac;
 	private WeaponCreator wc;
 	

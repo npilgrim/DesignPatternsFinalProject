@@ -1,6 +1,6 @@
 public abstract class ZoneCreator
 {
-	private ItemCreator itemCreator;
+	protected ItemCreator itemCreator;
 	
 	public Zone createZone()
 	{
@@ -89,7 +89,7 @@ public abstract class ZoneCreator
 			for (j = 0; j < 3; j++)
 				{
 					for (k = 0; k < 5; k++)
-						rooms[i][j].putItem( itemCreator.makeRandom(getID()));
+						rooms[i][j].putItem( itemCreator.makeRandom(getID()), true);
 				}
 	}
 }

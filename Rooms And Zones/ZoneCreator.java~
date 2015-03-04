@@ -1,17 +1,22 @@
 public abstract class ZoneCreator
 {
+	private ItemCreator itemCreator;
+	
 	public Zone createZone()
 	{
+		itemCreator = ItemCreator.getCreator();
 		Zone z = makeZone();
 		Room[][] rooms = z.getRooms();
 		
 		linkDoors(rooms);
+		fillInventory(rooms);
 		
 		return z;
 	}
 	
 	public abstract Zone makeZone();
 	public abstract Room makeRandomRoom();
+	public abstract int getID();
 	
 	public void linkDoors(Room[][] rooms)
 	{
@@ -74,5 +79,17 @@ public abstract class ZoneCreator
 				rooms[i][j].setDoors(doors);
 			}
 			
+	}
+	
+	public void fillInventory(Room[][] rooms)
+	{
+		int i, j, k;
+		
+		for (i = 0; i < 3; i++)
+			for (j = 0; j < 3; j++)
+				{
+					for (k = 0; k < 5; k++)
+						rooms[i][j].putItem( itemCreator.makeRandom(getID()));
+				}
 	}
 }

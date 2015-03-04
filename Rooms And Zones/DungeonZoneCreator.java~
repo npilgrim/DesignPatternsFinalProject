@@ -74,4 +74,9 @@ public class DungeonZoneCreator extends ZoneCreator
 			*/
 			
 	}
+	
+	public int getID()
+	{
+		return 3;
+	}
 }

@@ -19,8 +19,8 @@ public class ForestZoneCreator extends ZoneCreator
 		
 		while (num1 == 1 && num2 == 1)
 		{
-			num1 = (rand.nextInt() % 2 - 0) + 1;
-			num2 = (rand.nextInt() % 2 - 0) + 1;
+			num1 = (rand.nextInt() % 2 - 0 + 1) + 0;
+			num2 = (rand.nextInt() % 2 - 0 + 1) + 0;
 		}
 		
 		rooms[num1][num2] = roomCreator.createRoom("startingRoom");
@@ -31,11 +31,12 @@ public class ForestZoneCreator extends ZoneCreator
 		num1 = 1;
 		num2 = 1;
 		
-		while (num1 == 1 && num2 == 1 && (num1 != start_r && num2 != start_c))
+		while ((num1 == 1 && num2 == 1) || (num1 == start_r && num2 == start_c))
 		{
-			num1 = (rand.nextInt() % 2 - 0) + 1;
-			num2 = (rand.nextInt() % 2 - 0) + 1;
+			num1 = (rand.nextInt() % 2 - 0 + 1) + 0;
+			num2 = (rand.nextInt() % 2 - 0 + 1) + 0;
 		}
+		
 		rooms[num1][num2] = roomCreator.createRoom("forestToGrounds");
 		end_r = num1;
 		end_c = num2;
@@ -61,7 +62,7 @@ public class ForestZoneCreator extends ZoneCreator
 	{
 		Random r = new Random();
 		
-		int num = (r.nextInt() % 2 - 0) + 1;
+		int num = (r.nextInt() % 2 - 0 + 1) + 0;
 		
 		if ( num == 0 )
 			return roomCreator.createRoom("heavilyWooded");

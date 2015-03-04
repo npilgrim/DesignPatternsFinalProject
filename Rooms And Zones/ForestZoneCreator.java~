@@ -73,4 +73,9 @@ public class ForestZoneCreator extends ZoneCreator
 			return roomCreator.createRoom("");
 			
 	}
+	
+	public int getID()
+	{
+		return 0;
+	}
 }
