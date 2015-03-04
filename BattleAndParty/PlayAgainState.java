@@ -53,9 +53,9 @@ public class PlayAgainState implements GameState
 	}
 	
 	@Override
-	public void confirmExit()
+	public void manageInventory()
 	{
-		System.out.println("You have to decide whether you would like to play again or not first.");
+		System.out.println("Now is not the time for that, Ash!");
 	}
 
 	@Override

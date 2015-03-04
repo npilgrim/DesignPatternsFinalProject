@@ -10,6 +10,7 @@ public abstract class Character implements Comparable
 	private double accuracy;
 	private String name;
 	private boolean playable;
+	private Equipment equipment;
 	
 	public Character(boolean playable)
 	{
@@ -21,10 +22,64 @@ public abstract class Character implements Comparable
 		name = "Character";
 		
 		this.playable = playable;
+		equipment = new Equipment();
 	}
 	
 	public abstract Character cloneCharacter();
 	
+	public Armor armor()
+	{
+		return equipment.getArmor();
+	}
+/*	
+	public Item head()
+	{
+		return equipment.getHead();
+	}
+*/	
+	public Weapon weapon()
+	{
+		return equipment.getWeapon();
+	}
+	
+	public void equipWeapon(Weapon weapon)
+	{
+		equipment.setWeapon(weapon);
+	}
+	
+	public void equipArmor(Armor armor)
+	{
+		equipment.setArmor(armor);
+	}
+/*	
+	public void equipHead(Item head)
+	{
+		equipment.setHead(head);
+	}
+*/	
+	public Weapon unequipWeapon()
+	{
+		Weapon w = equipment.getWeapon();
+		
+		equipment.setWeapon(null);
+		
+		return w;
+	}
+	
+	public Item unequipArmor()
+	{
+		Item a = equipment.getArmor();
+		equipment.setArmor(null);
+		return a;
+	}
+/*	
+	public Item unequipHead()
+	{
+		Item h = equipment.getHead();
+		equipment.setHead(null);
+		return h;
+	}
+*/	
 	public boolean playable() 
 	{
 		return playable;
@@ -32,7 +87,7 @@ public abstract class Character implements Comparable
 
 	public int getHealth()
 	{
-		return health;
+		return health + armor().getHealth();
 	}
 	
 	public void setHealth(int health)
@@ -45,12 +100,12 @@ public abstract class Character implements Comparable
 	
 	public int getMinDmg()
 	{
-		return minDmg;
+		return minDmg + weapon().getDamage();
 	}
 	
 	public int getMaxDmg()
 	{
-		return maxDmg;
+		return maxDmg + weapon().getDamage();
 	}
 	
 	public double getAccuracy()
@@ -87,7 +142,7 @@ public abstract class Character implements Comparable
 		double a = r.nextDouble();
 		if(a < accuracy)
 		{
-			damage = r.nextInt(maxDmg-minDmg+1) + minDmg;
+			damage = r.nextInt(getMaxDmg()-getMinDmg()+1) + getMinDmg();
 		}
 		
 		return damage;

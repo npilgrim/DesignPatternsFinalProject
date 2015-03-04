@@ -26,9 +26,9 @@ public class StartGameState implements GameState
 	}
 	
 	@Override
-	public void confirmExit()
+	public void manageInventory()
 	{
-		System.out.println("You just started the game and haven't chosen to quit yet.");
+		System.out.println("Now is not the time for that, Ash!");
 	}
 	
 	@Override

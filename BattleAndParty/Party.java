@@ -4,10 +4,21 @@ import java.util.Iterator;
 public class Party implements Iterable<Character>
 {
 	private List party;
+	private Inventory inventory;
 	
 	public Party()
 	{
 		party = new List();
+		inventory = new Inventory("party inventory");
+	}
+	
+	public Party(Character c1, Character c2, Character c3, Character c4)
+	{
+		party = new List();
+		party.add(c1);
+		party.add(c2);
+		party.add(c3);
+		party.add(c4);
 	}
 
 	@Override
@@ -63,6 +74,11 @@ public class Party implements Iterable<Character>
 			System.out.println(h.getName() + "'s health: " + h.getHealth());
 		}
 		System.out.println();
+	}
+	
+	public Inventory inventory()
+	{
+		return this.inventory;
 	}
 	
 	public PartyMemento saveParty()

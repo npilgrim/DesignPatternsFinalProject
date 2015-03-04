@@ -3,16 +3,10 @@ import java.util.Random;
 public class GameBattleState implements GameState {
 
 	private Game game;
-	private Party enemies;
 	
 	public GameBattleState(Game game)
 	{
 		this.game = game;
-	}
-	
-	public void setEnemy(Party enemies)
-	{
-		this.enemies = enemies;
 	}
 	
 	@Override
@@ -35,59 +29,21 @@ public class GameBattleState implements GameState {
 		int option = 0, targetChoice = 0, i;
 		int damage = 0;
 		
-// refactor loop below to use Template
 		while (game.getEnemy().size() > 0 && game.getParty().size() > 0 && !quit) 
 		{
 			for (i = 0; i < characterOrder.length && game.getEnemy().size() > 0 && !quit; i++)
 			{
+				game.getParty().printState();
+				game.getEnemy().printState();
+				
 				if (characterOrder[i].playable() && !quit) 
 				{
-					game.getParty().printState();
-					game.getEnemy().printState();
-					System.out.println(characterOrder[i].getName() + "\n1. Attack\n2. Quit");
-					
-					try
-					{
-						option = Game.kb.nextInt();
-						Game.kb.nextLine();
-						while(option < 0 || option > 2)
-						{
-							System.out.println("Invalid menu choice. Try again.");
-							option = Game.kb.nextInt();
-							Game.kb.nextLine();
-						}
-					} 
-					catch (Exception e) 
-					{
-						System.out.println("Exception choosing option: " + e);
-					}
+					option = displayBattleMenu(characterOrder[i].getName());
 					 
 					switch (option) 
 					{
 					case 1:
-						System.out.println("\nChoose your target: ");
-						int j = 1;
-						for (Character t : game.getEnemy()) 
-						{
-							System.out.printf("[%d]: %s\n", j, t.getName());
-							j++;
-						}
-						
-						try
-						{
-							targetChoice = Game.kb.nextInt();
-							Game.kb.nextLine();
-							while(targetChoice < 1 || targetChoice > game.getEnemy().size())
-							{
-								System.out.println("Invalid target. Try again.");
-								targetChoice = Game.kb.nextInt();
-								Game.kb.nextLine();
-							}
-						}
-						catch (Exception e)
-						{
-							System.out.println("Exception while choosing target: " + e);
-						}
+						targetChoice = getTargetChoice();
 
 						target = game.getEnemy().getCharacter(targetChoice-1);
 						damage = characterOrder[i].attack();
@@ -104,7 +60,6 @@ public class GameBattleState implements GameState {
 							{
 								target.setHealth((target.getHealth() - damage));
 								System.out.println(characterOrder[i].getName() + " attacks " + target.getName() + " for " + damage + " points!");
-								System.out.println(target.getName() + " has " + target.getHealth() + " health points left.\n");
 							}
 						}
 						else
@@ -141,7 +96,6 @@ public class GameBattleState implements GameState {
 						{
 							target.setHealth(target.getHealth() - damage);
 							System.out.println(characterOrder[i].getName() + " attacks " + target.getName() + " for " + damage + " points!");
-							System.out.println(target.getName() + " has " + target.getHealth() + " health points left.");
 						}
 						System.out.println();
 					}
@@ -149,7 +103,7 @@ public class GameBattleState implements GameState {
 					{
 						System.out.println(characterOrder[i].getName() + "'s attack missed " + target.getName() + ".");
 					}
-				}
+				} // end elseif
 				
 			}// end for loop
 		} //end while loop
@@ -170,9 +124,9 @@ public class GameBattleState implements GameState {
 	}
    
    @Override
-   public void confirmExit()
+   public void manageInventory()
    {
-      System.out.println("You can't quit yet!");
+      System.out.println("Now is not the time for that, Ash!");
    }
 	
 	@Override
@@ -226,5 +180,61 @@ public class GameBattleState implements GameState {
 		}
 		
 		return order;
+	} // end setTurnOrder
+	
+	public int displayBattleMenu(String name)
+	{
+		int option = 0;
+		
+		System.out.println(name + "\n1. Attack\n2. Quit");
+		
+		try
+		{
+			option = Game.kb.nextInt();
+			Game.kb.nextLine();
+			while(option < 0 || option > 2)
+			{
+				System.out.println("Invalid menu choice. Try again.");
+				option = Game.kb.nextInt();
+				Game.kb.nextLine();
+			}
+		} 
+		catch (Exception e) 
+		{
+			System.out.println("Exception choosing option: " + e);
+		}
+		
+		return option;
+	}
+	
+	public int getTargetChoice()
+	{
+		int targetChoice = 0;
+		
+		System.out.println("\nChoose your target: ");
+		int j = 1;
+		for (Character t : game.getEnemy()) 
+		{
+			System.out.printf("[%d]: %s\n", j, t.getName());
+			j++;
+		}
+		
+		try
+		{
+			targetChoice = Game.kb.nextInt();
+			Game.kb.nextLine();
+			while(targetChoice < 1 || targetChoice > game.getEnemy().size())
+			{
+				System.out.println("Invalid target. Try again.");
+				targetChoice = Game.kb.nextInt();
+				Game.kb.nextLine();
+			}
+		}
+		catch (Exception e)
+		{
+			System.out.println("Exception while choosing target: " + e);
+		}
+		
+		return targetChoice;
 	}
 }

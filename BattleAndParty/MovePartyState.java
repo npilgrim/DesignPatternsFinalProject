@@ -27,9 +27,9 @@ public class MovePartyState implements GameState
 	}
 	
 	@Override
-	public void confirmExit()
+	public void manageInventory()
 	{
-		System.out.println("You haven't chosen to quit yet.");
+		System.out.println("Now is not the time for that, Ash!");
 	}
 	
 	@Override
