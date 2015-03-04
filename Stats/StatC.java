@@ -9,6 +9,12 @@ public interface StatC {
 	public void setHealth(int health);
 	public void setDamage(int damage);
 	public String display();
+	public void setMaxDamage(int maxDamage);
+	public void setMaxHealth(int maxHealth);
+	public void setMinDamage(int damage);
+	public int getDamage();
+	public int getHealth();
+	public double getAccuracy();
 	
 }
 

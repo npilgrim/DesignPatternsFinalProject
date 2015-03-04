@@ -17,16 +17,33 @@ public class Stats {
 	public void setName(String name){
 		this.name = name;
 	}
-	public void setStats(int health, int damage, double accuracy, int speed){
+	public void setStats(int health, int damage, double accuracy, int speed, int maxDamage, int maxHealth, int minDamage){
 		stat.setDamage(damage);
 		stat.setHealth(health);
 		stat.setAccuracy(accuracy);
 		stat.setSpeed(speed);
+		stat.setMaxDamage(maxDamage);
+		stat.setMaxHealth(maxHealth);
+		stat.setMinDamage(minDamage);
 	}
 		
 	public void displayStats(){
 		System.out.println(""+name+"::"+stat.display()+"\n");
 	}
+	
+	public void setHealth(int health){
+		stat.setHealth(health);
+	}
+	
+	public void setDamage(int damage){
+		stat.setDamage(damage);
+	}
+	
+	
+	public int getDamage(){
+		return stat.getDamage();
+	}
+
 
 }
 
