@@ -43,7 +43,28 @@ public class Stats {
 	public int getDamage(){
 		return stat.getDamage();
 	}
-
+	
+	public int getHealth(){
+		return stat.getHealth();
+	}
+	public double getAccuracy() {
+		
+		return stat.getAccuracy();
+	}
+	public int getSpeed() {
+		return stat.getSpeed();
+	}
+	public int getMaxDamage(){
+		return stat.getMaxDamage();
+	}
+	public int getMinDamage(){
+		return stat.getMinDamage();
+		
+	}
+	public void setSpeed(int speed) {
+		stat.setSpeed(speed);
+		
+	}
 
 }
 

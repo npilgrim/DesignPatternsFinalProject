@@ -15,6 +15,10 @@ public interface StatC {
 	public int getDamage();
 	public int getHealth();
 	public double getAccuracy();
+	public int getSpeed();
+	public int getMaxDamage();
+	public int getMaxHealth();
+	public int getMinDamage();
 	
 }
 

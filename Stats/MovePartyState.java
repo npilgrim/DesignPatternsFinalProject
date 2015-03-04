@@ -27,9 +27,9 @@ public class MovePartyState implements GameState
 	}
 	
 	@Override
-	public void confirmExit()
+	public void manageInventory()
 	{
-		System.out.println("You haven't chosen to quit yet.");
+		System.out.println("Now is not the time for that, Ash!");
 	}
 	
 	@Override
@@ -42,6 +42,12 @@ public class MovePartyState implements GameState
 	public void endGame() 
 	{
 		System.out.println("You're in the middle of the map. You cannot quit now.");
+	}
+
+	@Override
+	public void confirmExit() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

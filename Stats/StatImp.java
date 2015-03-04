@@ -21,8 +21,6 @@ public class StatImp implements StatC {
 		}
 		
 		
-			
-			
 		
 	}
 	@Override
@@ -106,4 +104,21 @@ public class StatImp implements StatC {
 		return this.accuracy;
 	}
 	// get maxDamage, maxHealth
+	
+	@Override
+	public int getMaxDamage(){
+		return this.maxDamage;
+	}
+	@Override
+	public int getMaxHealth(){
+		return this.maxHealth;
+	}
+	@Override 
+	public int getSpeed(){
+		return this.speed;
+	}
+	@Override
+	public int getMinDamage(){
+		return this.minDamage;
+	}
 }

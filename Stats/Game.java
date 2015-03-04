@@ -24,7 +24,7 @@ public class Game
 		startState = new StartGameState(this);
 		moveState = new MovePartyState(this);
 		battleState = new GameBattleState(this);
-		confirmState = new ConfirmExitState(this);
+		confirmState = new InventoryState(this);
 		playAgainState = new PlayAgainState(this);
 		endState = new EndGameState(this);
 		
@@ -106,11 +106,9 @@ public class Game
 		enemies.restoreParty(enemySave); // TODO remove this line after testign
 		current.playAgain();
 	}
-	public void confirmExit()
+	public void manageInventory()
 	{
-		party.restoreParty(savedParty);
-		enemies.restoreParty(enemySave); // TODO remove this line after testing
-		current.confirmExit();
+		current.manageInventory();
 	}
 	public void endGame()
 	{

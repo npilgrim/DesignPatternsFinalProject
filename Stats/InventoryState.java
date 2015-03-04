@@ -1,8 +1,9 @@
-public class EndGameState implements GameState {
-
+public class InventoryState implements GameState
+{
+	// TODO implement inventory management system
 	private Game game;
 	
-	public EndGameState(Game game)
+	public InventoryState(Game game)
 	{
 		this.game = game;
 	}
@@ -25,27 +26,25 @@ public class EndGameState implements GameState {
 	}
 	
 	@Override
-	public void manageInventory()
+	public void playAgain()
 	{
-		System.out.println("Too late! You already quit!");
+		System.out.println("You haven't finished the current game!");
 	}
 	
 	@Override
-	public void playAgain()
+	public void manageInventory()
 	{
-		System.out.println("Too late! You already quit!");
+		
 	}
-
 
 	@Override
 	public void endGame()
 	{
-		System.out.println("Thanks for playing! Goodbye.");
+		System.out.println("You have to confirm before you quit.");
 	}
 	@Override
 	public void confirmExit() {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

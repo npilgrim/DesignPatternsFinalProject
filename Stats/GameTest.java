@@ -1,53 +1,22 @@
-import java.util.Random;
-
 public class GameTest
 {
 
 	public static void main(String[] args)
 	{
-		Random r = new Random();
+		MonsterPartyMaker enemyMaker = MonsterPartyMaker.getMonsterPartyMaker();
+		HeroPartyBuilder builder = HeroPartyBuilder.getBuilder();
 		
-		Party goodGuys = new Party();
-		Party badGuys = new Party();
+		Party goodGuys = builder.h1()
+								.h2()
+								.h3()
+								.h4()
+								.buildParty();
 		
-		for(int i = 0; i < 4; i++)
-		{
-			goodGuys.addCharacter(new Hero());
-		}
-		for(int i = 0; i < 4; i++)
-		{
-			badGuys.addCharacter(new Monster());
-		}
-		
-		int i = 1;
-		for(Character c : goodGuys)
-		{
-			c.setName("Member " + i);
-			i++;
-			
-			c.setSpeed(r.nextInt(11));
-		}
-		for(Character c : badGuys)
-		{
-			c.setName("Monster " + r.nextInt(1001));
-			c.setSpeed(r.nextInt(11));
-		}
-		
-		for(Character c : goodGuys)
-		{
-			System.out.println(c.getName() + ": " + c.getSpeed());
-		}
-		for(Character c : badGuys)
-		{
-			System.out.println(c.getName() + ": " + c.getSpeed());
-		}
-		
-		System.out.println();
+		Party badGuys = enemyMaker.makeMonsterParty();
 		
 		Game tester = new Game(goodGuys);
 		tester.setEnemy(badGuys);
 		Game.enemySave = badGuys.saveParty();
-		//tester.getBattleState().setEnemy(badGuys);
 		tester.setState(tester.getBattleState());
 		while(tester.getState().equals(tester.getBattleState()))
 		{

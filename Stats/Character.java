@@ -6,11 +6,12 @@ public abstract class Character implements Comparable
 	private int speed;
 	private int health;
 	private int minDmg;
-	private Stats stats;
 	private int maxDmg;
 	private double accuracy;
 	private String name;
 	private boolean playable;
+	private Equipment equipment;
+	private Stats stats;
 	
 	public Character(boolean playable)
 	{
@@ -21,23 +22,77 @@ public abstract class Character implements Comparable
 		accuracy = 0.7;
 		name = "Character";
 		
+		this.playable = playable;
+		equipment = new Equipment();
 		//setting stats stuff
 		stats.setStats(100, 40, 0.7, 1, 40, 100, 20);
-		stats.setName(name);
-		
-		this.playable = playable;
+		stats.setName(name); //not really needed
 	}
 	
 	public abstract Character cloneCharacter();
 	
+	public Armor armor()
+	{
+		return equipment.getArmor();
+	}
+/*	
+	public Item head()
+	{
+		return equipment.getHead();
+	}
+*/	
+	public Weapon weapon()
+	{
+		return equipment.getWeapon();
+	}
+	
+	public void equipWeapon(Weapon weapon)
+	{
+		equipment.setWeapon(weapon);
+	}
+	
+	public void equipArmor(Armor armor)
+	{
+		equipment.setArmor(armor);
+	}
+/*	
+	public void equipHead(Item head)
+	{
+		equipment.setHead(head);
+	}
+*/	
+	public Weapon unequipWeapon()
+	{
+		Weapon w = equipment.getWeapon();
+		
+		equipment.setWeapon(null);
+		
+		return w;
+	}
+	
+	public Item unequipArmor()
+	{
+		Item a = equipment.getArmor();
+		equipment.setArmor(null);
+		return a;
+	}
+/*	
+	public Item unequipHead()
+	{
+		Item h = equipment.getHead();
+		equipment.setHead(null);
+		return h;
+	}
+*/	
 	public boolean playable() 
 	{
 		return playable;
 	}
 
 	public int getHealth()
-	{
-		return health;
+	{	
+		
+		return stats.getHealth() + armor().getHealth();
 	}
 	
 	public void setHealth(int health)
@@ -52,19 +107,18 @@ public abstract class Character implements Comparable
 	
 	public int getMinDmg()
 	{
-		
-		return minDmg;
-		
+		return stats.getMinDamage() + weapon().getDamage();
 	}
 	
 	public int getMaxDmg()
-	{
-		return maxDmg;
+	{	
+		
+		return stats.getMaxDamage() + weapon().getDamage();
 	}
 	
 	public double getAccuracy()
 	{
-		return accuracy;
+		return stats.getAccuracy();
 	}
 	
 	public String getName()
@@ -75,17 +129,19 @@ public abstract class Character implements Comparable
 	public void setName(String name)
 	{
 		this.name = name;
+		stats.setName(name);
 	}
 
 	public int getSpeed() 
 	{
-		return speed;
+		return stats.getSpeed();
 	}
 	
 	// for testing alone; TODO comment out when done testing
 	public void setSpeed(int speed)
 	{
 		this.speed = speed;
+		stats.setSpeed(speed);
 	}
 	
 	public int attack()
@@ -94,9 +150,9 @@ public abstract class Character implements Comparable
 		
 		Random r = new Random();
 		double a = r.nextDouble();
-		if(a < accuracy)
+		if(a < stats.getAccuracy())
 		{
-			damage = r.nextInt(maxDmg-minDmg+1) + minDmg;
+			damage = r.nextInt(stats.getMaxDamage()-stats.getMinDamage()+1) + stats.getMinDamage();
 		}
 		
 		return damage;
@@ -104,17 +160,17 @@ public abstract class Character implements Comparable
 	
 	public boolean equals(Character that)
 	{
-		if(that.name.equals(this.name))
+        if(that.name.equals(this.name))
 		{
-			if(that.speed == this.speed)
+			if(that.getSpeed() == this.getSpeed())
 			{
-				if(that.health == this.health)
+				if(that.getHealth() == this.getHealth())
 				{
-					if(that.minDmg == this.minDmg)
+					if(that.getMinDmg()== this.getMinDmg())
 					{
-						if(that.maxDmg == this.minDmg)
+						if(that.getMinDmg() == this.getMinDmg())
 						{
-							if(that.accuracy == this.accuracy)
+							if(that.getAccuracy() == this.getAccuracy())
 							{
 								return true;
 							}

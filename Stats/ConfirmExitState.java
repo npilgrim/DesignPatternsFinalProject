@@ -66,4 +66,9 @@ public class ConfirmExitState implements GameState
 	{
 		System.out.println("You have to confirm before you quit.");
 	}
+	@Override
+	public void manageInventory() {
+		// TODO Auto-generated method stub
+		
+	}
 }
