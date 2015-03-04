@@ -23,4 +23,9 @@ public abstract class Weapon implements Item
 		return "weapon";
 	}
 	
+	public boolean equipable()
+	{
+		return true;
+	}
+	
 }

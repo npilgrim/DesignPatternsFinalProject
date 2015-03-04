@@ -34,7 +34,7 @@ public class Game
 		this.savedParty = party.saveParty();
 	}
 	
-	public Party getParty()
+	public Party party()
 	{
 		return this.party;
 	}
@@ -44,7 +44,7 @@ public class Game
 		return this.savedParty;
 	}
 	
-	public Party getEnemy()
+	public Party enemy()
 	{
 		return this.enemies;
 	}

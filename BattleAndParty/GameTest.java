@@ -18,7 +18,7 @@ public class GameTest
 		tester.setEnemy(badGuys);
 		Game.enemySave = badGuys.saveParty();
 		tester.setState(tester.getBattleState());
-		while(tester.getState().equals(tester.getBattleState()))
+		while(!tester.getState().equals(tester.getEndState()))
 		{
 			tester.engageBattle(); 
 			if(tester.getState().equals(tester.getPlayAgainState()))

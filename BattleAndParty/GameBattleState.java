@@ -19,22 +19,23 @@ public class GameBattleState implements GameState {
 		System.out.println("Unable to move right now.");
 	}
 
+//TODO abstact loop out to use Template
 	@Override
 	public void engageBattle() 
 	{
 		boolean quit = false;
 		Random random = new Random();
-		Character[] characterOrder = setTurnOrder(game.getParty(), game.getEnemy());
+		Character[] characterOrder = setTurnOrder(game.party(), game.enemy());
 		Character target = null;
 		int option = 0, targetChoice = 0, i;
 		int damage = 0;
 		
-		while (game.getEnemy().size() > 0 && game.getParty().size() > 0 && !quit) 
+		while (game.enemy().size() > 0 && game.party().size() > 0 && !quit) 
 		{
-			for (i = 0; i < characterOrder.length && game.getEnemy().size() > 0 && !quit; i++)
+			for (i = 0; i < characterOrder.length && game.enemy().size() > 0 && !quit; i++)
 			{
-				game.getParty().printState();
-				game.getEnemy().printState();
+				game.party().printState();
+				game.enemy().printState();
 				
 				if (characterOrder[i].playable() && !quit) 
 				{
@@ -45,7 +46,7 @@ public class GameBattleState implements GameState {
 					case 1:
 						targetChoice = getTargetChoice();
 
-						target = game.getEnemy().getCharacter(targetChoice-1);
+						target = game.enemy().getCharacter(targetChoice-1);
 						damage = characterOrder[i].attack();
 
 						if (damage > 0)
@@ -53,8 +54,8 @@ public class GameBattleState implements GameState {
 							if (damage >= target.getHealth()) 
 							{
 								System.out.println(target.getName() + " has been defeated!");
-								game.getEnemy().remove(target);
-								characterOrder = setTurnOrder(game.getParty(), game.getEnemy());
+								game.enemy().remove(target);
+								characterOrder = setTurnOrder(game.party(), game.enemy());
 							} 
 							else
 							{
@@ -78,9 +79,9 @@ public class GameBattleState implements GameState {
 					}// end switch
 					
 				} // end if playable
-				else if(!quit && game.getParty().size() > 0)
+				else if(!quit && game.party().size() > 0)
 				{
-					target = game.getParty().getCharacter(random.nextInt(game.getParty().size()));
+					target = game.party().getCharacter(random.nextInt(game.party().size()));
 					damage = characterOrder[i].attack();
 					
 					
@@ -89,8 +90,8 @@ public class GameBattleState implements GameState {
 						if (damage >= target.getHealth()) 
 						{
 							System.out.println(target.getName() + " has been defeated!");
-							game.getParty().remove(target);
-							characterOrder = setTurnOrder(game.getParty(), game.getEnemy());
+							game.party().remove(target);
+							characterOrder = setTurnOrder(game.party(), game.enemy());
 						} 
 						else 
 						{
@@ -110,11 +111,11 @@ public class GameBattleState implements GameState {
 		
 		if(!game.getState().equals(game.getPlayAgainState()) && !quit)
 		{	
-			if(game.getParty().size() == 0)
+			if(game.party().size() == 0)
 			{
 				System.out.println("Your entire has been defeated...");
 			}
-			else if(game.getEnemy().size() == 0)
+			else if(game.enemy().size() == 0)
 			{
 				System.out.println("Victory!");
 			}
@@ -213,7 +214,7 @@ public class GameBattleState implements GameState {
 		
 		System.out.println("\nChoose your target: ");
 		int j = 1;
-		for (Character t : game.getEnemy()) 
+		for (Character t : game.enemy()) 
 		{
 			System.out.printf("[%d]: %s\n", j, t.getName());
 			j++;
@@ -223,7 +224,7 @@ public class GameBattleState implements GameState {
 		{
 			targetChoice = Game.kb.nextInt();
 			Game.kb.nextLine();
-			while(targetChoice < 1 || targetChoice > game.getEnemy().size())
+			while(targetChoice < 1 || targetChoice > game.enemy().size())
 			{
 				System.out.println("Invalid target. Try again.");
 				targetChoice = Game.kb.nextInt();

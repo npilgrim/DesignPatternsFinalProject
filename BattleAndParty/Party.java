@@ -76,6 +76,15 @@ public class Party implements Iterable<Character>
 		System.out.println();
 	}
 	
+	public void printNames()
+	{
+		int i = 0;
+		for(Node c = party.head(); c != null; c = c.getNext())
+		{
+			System.out.println("[" + i + "] " + ((Character)c.getData()).getName());
+		}
+	}
+	
 	public Inventory inventory()
 	{
 		return this.inventory;

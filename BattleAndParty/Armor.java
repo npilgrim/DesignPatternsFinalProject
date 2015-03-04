@@ -23,4 +23,9 @@ public abstract class Armor implements Item
 		return "armor";
 	}
 	
+	public boolean equipable()
+	{
+		return true;
+	}
+	
 }

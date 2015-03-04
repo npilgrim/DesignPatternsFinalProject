@@ -42,44 +42,18 @@ public abstract class Character implements Comparable
 		return equipment.getWeapon();
 	}
 	
-	public void equipWeapon(Weapon weapon)
+	public Item equip(Item i)
 	{
-		equipment.setWeapon(weapon);
+		Item r = null;
+		
+		if(i.getType().equals("weapon"))
+			r = equipment.equipWeapon(i);
+		else
+			r = equipment.equipArmor(i);
+		
+		return r;
 	}
 	
-	public void equipArmor(Armor armor)
-	{
-		equipment.setArmor(armor);
-	}
-/*	
-	public void equipHead(Item head)
-	{
-		equipment.setHead(head);
-	}
-*/	
-	public Weapon unequipWeapon()
-	{
-		Weapon w = equipment.getWeapon();
-		
-		equipment.setWeapon(null);
-		
-		return w;
-	}
-	
-	public Item unequipArmor()
-	{
-		Item a = equipment.getArmor();
-		equipment.setArmor(null);
-		return a;
-	}
-/*	
-	public Item unequipHead()
-	{
-		Item h = equipment.getHead();
-		equipment.setHead(null);
-		return h;
-	}
-*/	
 	public boolean playable() 
 	{
 		return playable;
