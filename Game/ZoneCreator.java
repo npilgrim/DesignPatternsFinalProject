@@ -1,3 +1,5 @@
+import java.util.*;
+
 public abstract class ZoneCreator
 {
 	protected ItemCreator itemCreator;
@@ -12,6 +14,8 @@ public abstract class ZoneCreator
 		
 		linkDoors(rooms);
 		fillInventory(rooms);
+		fillMonsterParties(rooms);
+		
 		
 		return z;
 	}
@@ -22,11 +26,17 @@ public abstract class ZoneCreator
 	
 	public void fillMonsterParties(Room[][] rooms)
 	{
+		Random gen = new Random();
+		int num;
+		
 		int i, j;
 		
 		for (i = 0; i < 3; i++)
 			for (j = 0; j < 3; j++)
+			{
+
 				rooms[i][j].setMonsterParty(monsterMaker.makeMonsterParty());
+			}
 	}
 	
 	public void linkDoors(Room[][] rooms)

@@ -52,9 +52,9 @@ public class Map
 		to.setDoor(4, new Door("UP" , from, true));
 	}
 	
-	public void getCurrentRoomEnemies()
+	public Party getMonsterParty()
 	{
-		//IMPLEMENT THIS !
+		return this.currentRoom.getMonsterParty();
 	}
 	
 	public Room getStartingRoom()

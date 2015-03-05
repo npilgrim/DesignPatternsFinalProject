@@ -1,9 +1,11 @@
 public abstract class ZoneCreator
 {
 	protected ItemCreator itemCreator;
+	private MonsterPartyMaker monsterMaker;
 	
 	public Zone createZone()
 	{
+		monsterMaker = MonsterPartyMaker.getMonsterPartyMaker();
 		itemCreator = ItemCreator.getCreator();
 		Zone z = makeZone();
 		Room[][] rooms = z.getRooms();
@@ -17,6 +19,15 @@ public abstract class ZoneCreator
 	public abstract Zone makeZone();
 	public abstract Room makeRandomRoom();
 	public abstract int getID();
+	
+	public void fillMonsterParties(Room[][] rooms)
+	{
+		int i, j;
+		
+		for (i = 0; i < 3; i++)
+			for (j = 0; j < 3; j++)
+				rooms[i][j].setMonsterParty(monsterMaker.makeMonsterParty());
+	}
 	
 	public void linkDoors(Room[][] rooms)
 	{

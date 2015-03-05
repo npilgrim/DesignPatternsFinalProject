@@ -61,4 +61,9 @@ public class Inventory
 		
 		bag.add(i);
 	}
+	
+	public int size()
+	{
+		return bag.size();
+	}
 }
