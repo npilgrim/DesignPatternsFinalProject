@@ -84,15 +84,13 @@ public class Party implements Iterable<Character>
 		if ( party.size() == 0 )
 			return "";
 		
-		ret += "Monsters in the room: \n";
+		ret += "Monsters found in room: \n";
 		for(Node c = party.head(); c != null; c = c.getNext())
 		{
 			ret += "\t[" + i++ + "] " + ((Character)c.getData()).getName();
 			ret += "\n";
 			//System.out.println("[" + i + "] " + ((Character)c.getData()).getName());
 		}
-		
-		ret += "\n";
 		
 		return ret;
 	}
