@@ -18,6 +18,11 @@ public abstract class Room
 		return name;
 	}
 	
+	public Party getMonsterParty()
+	{
+		return this.monsters;
+	}
+	
 	public void setMonsterParty(Party party)
 	{
 		this.monsters = party;
@@ -27,7 +32,9 @@ public abstract class Room
 	{	
 		String ret = name + "\n" + description + "\n";
 		ret += getDoorNames() + "\n";
-		ret += inventory.getDescription();
+		ret += inventory.getDescription() + "\n";
+		//if ( monsters != null)
+			ret += monsters.printNames() + "\n";
 		
 		return ret;
 	}
