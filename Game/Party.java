@@ -19,6 +19,8 @@ public class Party implements Iterable<Character>
 		party.add(c2);
 		party.add(c3);
 		party.add(c4);
+		
+		inventory = new Inventory("party inventory");
 	}
 
 	@Override
@@ -78,21 +80,20 @@ public class Party implements Iterable<Character>
 	
 	public String printNames()
 	{
-		String ret = "";
-		int i = 0;
-		
-		if ( party.size() == 0 )
-			return "";
-		
-		ret += "Monsters found in room: \n";
-		for(Node c = party.head(); c != null; c = c.getNext())
+		String r = "";
+		if(size() != 0)
 		{
-			ret += "\t[" + i++ + "] " + ((Character)c.getData()).getName();
-			ret += "\n";
-			//System.out.println("[" + i + "] " + ((Character)c.getData()).getName());
+			int i = 0;
+			for(Node c = party.head(); c != null; c = c.getNext(), i++)
+			{
+				if(!((Character)c.getData()).getName().equals(""))
+					r += "\t[" + i + "] " + ((Character)c.getData()).getName() + "\n";
+				//System.out.println("[" + i + "] " + ((Character)c.getData()).getName());
+			}
+			
 		}
 		
-		return ret;
+		return r;
 	}
 	
 	public Inventory inventory()

@@ -27,7 +27,7 @@ public class Inventory
 			for (i = 0; i < bag.size(); i++)
 			{
 				item = bag.get(i);
-				ret += "\t" + i + ") " + item.getName() + "\n";
+				ret += "   " + i + ") " + item.getName() + "\n";
 			}
 		}
 			

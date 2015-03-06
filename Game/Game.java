@@ -7,7 +7,7 @@ public class Game
 	private GameState startState;
 	private GameState moveState;
 	private GameState battleState;
-	private GameState confirmState;
+	private GameState inventoryState;
 	private GameState playAgainState;
 	private GameState endState;
 	
@@ -16,27 +16,31 @@ public class Game
 	private Party.PartyMemento savedParty;
 	private Party enemies;
 	
-	// strictly for testing purposes
-	static Party.PartyMemento enemySave;
+	private Map map;
 	
-	public Game(Party party)
+	public Game()
 	{
 		startState = new StartGameState(this);
 		moveState = new MovePartyState(this);
 		battleState = new GameBattleState(this);
-		confirmState = new InventoryState(this);
+		inventoryState = new InventoryState(this);
 		playAgainState = new PlayAgainState(this);
 		endState = new EndGameState(this);
 		
 		setState(startState);
 		
-		this.party = party;
-		this.savedParty = party.saveParty();
+		printBanner();
 	}
 	
 	public Party party()
 	{
 		return this.party;
+	}
+	
+	public void setParty(Party party)
+	{
+		this.party = party;
+		this.savedParty = party.saveParty();
 	}
 	
 	public Party.PartyMemento getSavedParty()
@@ -79,9 +83,9 @@ public class Game
 		return playAgainState;
 	}
 	
-	public GameState getConfirmState()
+	public GameState getInventoryState()
 	{
-		return confirmState;
+		return inventoryState;
 	}
 
 	public GameState getEndState() {
@@ -99,19 +103,46 @@ public class Game
 	public void engageBattle()
 	{
 		current.engageBattle();
+		party.restoreParty(savedParty);
 	}
 	public void playAgain()
 	{
-		party.restoreParty(savedParty);
-		enemies.restoreParty(enemySave); // TODO remove this line after testign
 		current.playAgain();
 	}
 	public void manageInventory()
 	{
 		current.manageInventory();
+		this.savedParty = this.party.saveParty();
 	}
 	public void endGame()
 	{
 		current.endGame();
+	}
+	
+	public void printBanner()
+	{
+		String[] array = new String[9];
+		
+		array[0] = "\t\t __  __           _       _    _       _ \n";
+		array[1] = "\t\t|  \\/  |         | |     | |  | |     | |\n";
+		array[2] = "\t\t| \\  / | __ _ ___| |__   | |  | |_ __ | |\n";
+		array[3] = "\t\t| |\\/| |/ _` / __| '_ \\  | |  | | '_ \\| |\n";
+		array[4] = "\t\t| |  | | (_| \\__ \\ | | | | |__| | |_) |_|\n";
+		array[5] = "\t\t|_|  |_|\\__,_|___/_| |_|  \\____/| .__/(_)\n";
+		array[6] = "\t\t                                | |      \n";
+		array[7] = "\t\t                                |_|      \n";
+		array[8] = "\tGame developed by: Nathan Pilgrim, Corbin Staaben, Brady Clapp\n";
+		
+		
+		for (int i = 0; i < array.length; i++)
+			System.out.println(array[i]);
+	}
+
+	public Map map() {
+		return map;
+	}
+
+	public void setMap(Map map) {
+		this.map = map;
 	}
 }

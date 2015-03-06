@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class MonsterPartyMaker 
 {
 	private static MonsterPartyMaker monsterPartyMaker = null;
@@ -18,15 +20,30 @@ public class MonsterPartyMaker
 	
 	public Party makeMonsterParty()
 	{
-		Party p = new Party();
+		Party p;
 		Monster m;
+		Random r = new Random();
 		
-		for(int i = 0; i < 4; i++)
+		if((r.nextDouble()) <= 0.3)
 		{
-			m = mm.makeMonster();
-			p.addCharacter(m);
+			p = new Party();
+			
+			for(int i = 0; i < 4; i++)
+			{
+				m = mm.makeMonster();
+				p.addCharacter(m);
+			}
+		}
+		else
+		{
+			p = makeEmptyParty();
 		}
 		
 		return p;
+	}
+	
+	public Party makeEmptyParty()
+	{
+		return new Party();
 	}
 }

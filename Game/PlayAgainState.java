@@ -46,7 +46,7 @@ public class PlayAgainState implements GameState
 		
 		if(input.equalsIgnoreCase("yes"))
 		{
-			game.setState(game.getBattleState());
+			game.setState(game.getStartState());
 		}
 		else
 			game.setState(game.getEndState());

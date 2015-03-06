@@ -17,7 +17,22 @@ public class MovePartyState implements GameState
 	@Override
 	public void moveParty() 
 	{
-		System.out.println("You moved the party!");
+		String input = "";
+		
+		System.out.println(game.map().getCurrentRoomDescription());
+		System.out.println("To enter inventory type \"i\" then enter.\nTo move press {e, w, n, s, u, d} then enter.\n" +
+				"If you wish to quit, type \"quit\".");
+		input = Game.kb.nextLine();
+		
+		System.out.println();
+		
+		if(input.equalsIgnoreCase("i"))
+			game.setState(game.getInventoryState());
+		else if(input.equalsIgnoreCase("quit"))
+			game.setState(game.getPlayAgainState());
+		else
+			game.map().moveRoom(input);
+			
 	}
 
 	@Override

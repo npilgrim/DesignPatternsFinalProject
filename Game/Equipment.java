@@ -58,7 +58,7 @@ public class Equipment
 			this.armor = (Armor)armor;
 		}
 		
-		System.out.println("You equip the " + a.getDescription() + ".");
+		//System.out.println("You equip the " + armor.getName() + ".");
 		return a;
 	}
 	
@@ -76,7 +76,7 @@ public class Equipment
 			this.weapon = (Weapon)weapon;
 		}
 		
-		System.out.println("You equip the " + w.getDescription() + ".");
+		//System.out.println("You equip the " + weapon.getName() + ".");
 		return w;
 	}
 	

@@ -2,7 +2,6 @@ public class InventoryState implements GameState
 {
 	private final int ACTION = 0;
 	private final int ITEM_NUM = 1;
-	private final int ARG_LENGTH = 2;
 	
 	private Game game;
 	
@@ -37,26 +36,27 @@ public class InventoryState implements GameState
 	@Override
 	public void manageInventory()
 	{
-		String input[] = null;
+		String input[] = {"", ""}; // set to empty strings to avoid exception(s)
 		Item choice = null, unequipped = null;
 		Character target = null;
 		
-		game.party().inventory().getDescription();
 		while(!input[ACTION].equalsIgnoreCase("exit"))
 		{
+			System.out.println(game.party().inventory().getDescription());
+			
 			input = inventoryMenu();
 			if(input[ACTION].equalsIgnoreCase("equip"))
 			{
 				choice = game.party().inventory().getItem(Integer.parseInt(input[ITEM_NUM]));
 				while(!choice.equipable())
 				{
-					System.out.println("You can't equip that item!");
+					System.out.println("You can't equip that item!\n");
 					game.party().inventory().putItem(choice, true);
 				}
 				
 				target = chooseTargetCharacter(choice);
 				
-				unequipped = target.equip(choice);
+				unequipped = target.equip(choice, false);
 				if(unequipped != null)
 				{
 					game.party().inventory().putItem(unequipped, false);
@@ -65,7 +65,11 @@ public class InventoryState implements GameState
 			else if(input[ACTION].equalsIgnoreCase("drop"))
 			{
 				choice = game.party().inventory().getItem(Integer.parseInt(input[ITEM_NUM]));
-				System.out.println("You  dropped " + choice.getDescription() + ".");
+				System.out.println("You  dropped " + choice.getName() + "."); // TODO give item to room inventory
+			}
+			else if(!input[ACTION].equalsIgnoreCase("exit"))
+			{
+				System.out.println("Invalid command. Try again.\n");
 			}
 		}
 		
@@ -83,9 +87,7 @@ public class InventoryState implements GameState
 		String[] result = null;
 		String in = "";
 		
-		System.out.println("Type either \"equip\" or \"drop\" followed by a space \n"
-				+ "and then the item number to perform that action on the specified item.\n" +
-				"Type \"exit\" to exit the inventory.");
+		System.out.println("\n\"equip\" or \"drop\" items via item number. Type \"exit\" to exit the inventory.");
 		
 		try
 		{
@@ -115,8 +117,8 @@ public class InventoryState implements GameState
 		Character t = null;
 		int choice = 0;
 		
-		System.out.println("Choose the character to equip " + item.getDescription() + " to:");
-		game.party().printNames();
+		System.out.println("\nChoose the character to equip " + item.getName() + " to:");
+		System.out.println(game.party().printNames());
 		
 		choice = Game.kb.nextInt();
 		Game.kb.nextLine();
