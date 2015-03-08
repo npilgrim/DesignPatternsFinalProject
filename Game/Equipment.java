@@ -72,7 +72,8 @@ public class Equipment
 		}
 		else
 		{
-			w = unequipWeapon();
+			if(!weapon.getName().equals("null"))
+				w = unequipWeapon();
 			this.weapon = (Weapon)weapon;
 		}
 		
