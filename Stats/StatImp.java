@@ -67,10 +67,11 @@ public class StatImp implements StatC {
    	
       return "HP: ["+health+"],dmg: ["+damage+"],acc: ["+accuracy+"],spd: ["+speed+"]";
    }
-   @Override
-   public Sting getDescription(){
-      if(this.health=>(maxHealth-10)
-
+  
+   public String getDescription(){
+      if(this.health>=(this.maxHealth-10)){}
+      return "";
+   }
    @Override
    public void setSpeed(int speed) {
       this.speed=speed;
