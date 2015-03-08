@@ -65,7 +65,7 @@ public class InventoryState implements GameState
 			else if(input[ACTION].equalsIgnoreCase("drop"))
 			{
 				choice = game.party().inventory().getItem(Integer.parseInt(input[ITEM_NUM]));
-				System.out.println("You  dropped " + choice.getName() + "."); // TODO give item to room inventory
+				game.map().getCurrentRoom().putItem(choice, true);
 			}
 			else if(!input[ACTION].equalsIgnoreCase("exit"))
 			{

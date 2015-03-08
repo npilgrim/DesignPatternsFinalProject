@@ -1,11 +1,14 @@
+import java.util.Random;
 
 public class Monster extends Character 
-{
+{	
+	private Random r;
 	
 	public Monster()
 	{
 		super(false);
 		setName("Monster");
+		fillEquipment();
 	}
 
 	@Override
@@ -31,5 +34,21 @@ public class Monster extends Character
 		c.setSpeed(getSpeed());
 		
 		return c;
+	}
+	
+	public void fillEquipment()
+	{
+		r = new Random();
+		double x = r.nextDouble();
+		
+		if(x < 0.35) // chance to generate weapon
+		{
+			super.equip((Item)WeaponCreator.makeRandom(), true);
+		}
+		else if(x >= 0.35 && x < 0.7) // chance to generate armor
+		{
+			super.equip((Item)ArmorCreator.makeRandom(), true);
+		}
+		
 	}
 }

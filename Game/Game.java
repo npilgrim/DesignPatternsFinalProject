@@ -98,6 +98,7 @@ public class Game
 	}
 	public void moveParty()
 	{
+		setEnemy(map.getMonsterParty());
 		current.moveParty();
 	}
 	public void engageBattle()

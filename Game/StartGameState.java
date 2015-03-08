@@ -21,6 +21,7 @@ public class StartGameState implements GameState
 				.buildParty();
 		
 		game.setParty(goodGuys);
+		game.setEnemy(game.map().getMonsterParty());
 		
 		game.setState(game.getMoveState());
 	}

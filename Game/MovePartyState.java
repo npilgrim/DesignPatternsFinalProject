@@ -19,19 +19,33 @@ public class MovePartyState implements GameState
 	{
 		String input = "";
 		
-		System.out.println(game.map().getCurrentRoomDescription());
-		System.out.println("To enter inventory type \"i\" then enter.\nTo move press {e, w, n, s, u, d} then enter.\n" +
-				"If you wish to quit, type \"quit\".");
-		input = Game.kb.nextLine();
-		
-		System.out.println();
-		
-		if(input.equalsIgnoreCase("i"))
-			game.setState(game.getInventoryState());
-		else if(input.equalsIgnoreCase("quit"))
-			game.setState(game.getPlayAgainState());
+		if(game.map().getMonsterParty().size() == 0)
+		{
+			System.out.println(game.map().getCurrentRoomDescription());
+			System.out.println("Inventory: i\nPickup item: pickup item_number\nMove: {e, w, n, s, u, d}\n" +
+					"Quit: quit");
+			input = Game.kb.nextLine();
+			
+			System.out.println();
+			
+			if(input.equalsIgnoreCase("i"))
+				game.setState(game.getInventoryState());
+			else if(input.equalsIgnoreCase("quit"))
+				game.setState(game.getPlayAgainState());
+			//TODO display map command
+			else if(input.contains("pickup"))
+			{
+				int itemNum = Integer.parseInt(input.charAt(input.length()-1) + "");
+				Item pickup = game.map().getCurrentRoom().getItem(itemNum);
+				game.party().inventory().putItem(pickup, false);
+			}
+			else
+				game.map().moveRoom(input);
+		}
 		else
-			game.map().moveRoom(input);
+		{
+			game.setState(game.getBattleState());
+		}
 			
 	}
 

@@ -7,8 +7,8 @@ public class Equipment
 	public Equipment()
 	{
 		//this.head = null;
-		this.armor = null;
-		this.weapon = null;
+		this.armor = new NullArmor();
+		this.weapon = new NullWeapon();
 	}
 /*
 	public Item getHead() {

@@ -62,9 +62,22 @@ public class Party implements Iterable<Character>
 		return null;
 	}
 	
-	public void remove(Character c)
+	public Item[] kill(Character c)
 	{
+		Item[] loot = new Item[2];
+		
+		if(!c.armor().getName().equalsIgnoreCase("null"))
+			loot[0] = c.armor();
+		else
+			loot[0] = null;
+		if(!c.weapon().getName().equalsIgnoreCase("null"))
+			loot[1] = c.weapon();
+		else
+			loot[1] = null;
+		
 		party.remove(c);
+		
+		return loot;
 	}
 	
 	public void printState()

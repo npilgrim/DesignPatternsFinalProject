@@ -34,7 +34,7 @@ public abstract class Room
 		ret += getDoorNames() + "\n";
 		ret += inventory.getDescription() + "\n";
 		//if ( monsters != null)
-		ret += monsters.printNames();
+		//ret += monsters.printNames();
 		
 		return ret;
 	}
