@@ -62,10 +62,39 @@ public class StatImp implements StatC {
       this.damage = damage; 
    	
    }
+   @Override 
+   public String characterStatus(){
+      int pers = (int)(this.health*100/this.maxHealth);
+   	String status;
+      
+      if(pers<=10){
+         return "You feel cold and are now quickly going in and out of consciousness.";
+      }
+      else if(pers<=20){
+         return "You begin to see a faint light and feel like taking a nap.";
+      }
+      else if(pers<=30){
+         return "Your vision has begin to blur and you've become very tired";
+      }
+      else if(pers<=50){
+        return "You've lost about half your blood but still have some fight left in you.";
+      }
+      else if(pers<=60){
+         return "You notice you've lost quite a bit of blood.";
+      }
+      else if(pers<=70){
+         return "You start feel blood running down your body.";
+      }
+      else if(pers<=90){
+         return "It's really just a flesh wound.";
+      }
+      else
+         return "";
+   }
    @Override
    public String display() {
    	
-      return "HP: ["+health+"],dmg: ["+damage+"],acc: ["+accuracy+"],spd: ["+speed+"]";
+      return characterStatus()+"/nHP: ["+health+"] DMG: ["+damage+"] ACC: ["+accuracy+"] SPD: ["+speed+"]"; //need to work on adding weopon damage to DMG
    }
   
    public String getDescription(){

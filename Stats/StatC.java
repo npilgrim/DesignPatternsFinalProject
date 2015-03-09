@@ -19,6 +19,7 @@ public interface StatC {
 	public int getMaxDamage();
 	public int getMaxHealth();
 	public int getMinDamage();
+   public String characterStatus();
 	
 }
 
