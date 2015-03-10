@@ -48,15 +48,9 @@ public class Equipment
 	{
 		Armor a = null;
 		
-		if(this.armor == null)
-		{
-			this.armor = (Armor)armor;
-		}
-		else
-		{
+		if(!this.armor.getName().equals("null"))
 			a = unequipArmor();
-			this.armor = (Armor)armor;
-		}
+		this.armor = (Armor)armor;
 		
 		//System.out.println("You equip the " + armor.getName() + ".");
 		return a;
@@ -66,17 +60,12 @@ public class Equipment
 	{	
 		Weapon w = null;
 		
-		if(this.weapon == null)
-		{
-			this.weapon = (Weapon)weapon;
-		}
-		else
-		{
-			if(!weapon.getName().equals("null"))
-				w = unequipWeapon();
-			this.weapon = (Weapon)weapon;
-		}
 		
+		if(!this.weapon.getName().equals("null"))
+			w = unequipWeapon();
+		
+		this.weapon = (Weapon)weapon;
+				
 		//System.out.println("You equip the " + weapon.getName() + ".");
 		return w;
 	}
