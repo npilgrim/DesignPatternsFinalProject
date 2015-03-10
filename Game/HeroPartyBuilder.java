@@ -1,13 +1,10 @@
-import java.util.Random;
+import java.util.*;
 
 public class HeroPartyBuilder 
 {
 	private static HeroPartyBuilder builder = null;
 	
 	private Hero h1, h2, h3, h4;
-	
-	//TODO for testing
-	private Random rand = new Random();
 
 	private HeroPartyBuilder() {} // stubbed out ctor
 	
@@ -19,39 +16,30 @@ public class HeroPartyBuilder
 		return builder;
 	}
 	
-// TODO refactor next 4 methods to get hero choice from user
 	public HeroPartyBuilder h1()
 	{
-		this.h1 = new Hero();
-		this.h1.setSpeed(rand.nextInt(11));
-		this.h1.setName("Member 1");
+		this.h1 = getHero();
 		
 		return this;
 	}
 	
 	public HeroPartyBuilder h2()
 	{
-		this.h2 = new Hero();
-		this.h2.setSpeed(rand.nextInt(11));
-		this.h2.setName("Member 2");
+		this.h2 = getHero();
 		
 		return this;
 	}
 	
 	public HeroPartyBuilder h3()
 	{
-		this.h3 = new Hero();
-		this.h3.setSpeed(rand.nextInt(11));
-		this.h3.setName("Member 3");
+		this.h3 = getHero();
 		
 		return this;
 	}
 	
 	public HeroPartyBuilder h4()
 	{
-		this.h4 = new Hero();
-		this.h4.setSpeed(rand.nextInt(11));
-		this.h4.setName("Member 4");
+		this.h4 = getHero();
 		
 		return this;
 	}
@@ -59,6 +47,51 @@ public class HeroPartyBuilder
 	public Party buildParty()
 	{	
 		return new Party(h1, h2, h3, h4);
+	}
+	
+	public Hero getHero()
+	{
+		Hero h = null;
+		int choice = -1;
+		
+		System.out.println("Please choose the type of hero you'd like:");
+		System.out.println("\t[0] Jedi Master\n\t[1] Ranger of the North\n\t[2] Mage\n\t[3] Captain of the " +
+				"starship Enterprise");
+		while(choice < 0)
+		{
+			try
+			{
+				choice = Game.kb.nextInt();
+				Game.kb.nextLine();
+				if(choice < 0 || choice > 3)
+					throw new InputMismatchException();
+			}
+			catch(InputMismatchException im)
+			{
+				System.out.println("Invalid choice. Try again.");
+			}
+		}
+		
+		switch(choice)
+		{
+			case 0:
+				h = new Jedi();
+				break;
+			case 1:
+				h = new Ranger();
+				break;
+			case 2:
+				h = new Mage();
+				break;
+			case 3:
+				h = new EnterpriseCaptain();
+				break;
+		}
+		
+		System.out.println("Enter the name of this hero: ");
+		h.setName(Game.kb.nextLine());
+		
+		return h;
 	}
 
 }

@@ -3,12 +3,13 @@ import java.util.Random;
 public class Monster extends Character 
 {	
 	private Random r;
+	private RandomNameGenerator nameMaker = RandomNameGenerator.getGenerator();
 	
 	public Monster()
 	{
 		super(false);
-		setName("Monster");
 		fillEquipment();
+		setName(nameMaker.randomName());
 	}
 
 	@Override

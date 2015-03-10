@@ -1,10 +1,9 @@
 
-public class Hero extends Character
+public abstract class Hero extends Character
 {	
 	public Hero()
 	{
 		super(true);
-		setName("Hero");
 	}
 
 	@Override
@@ -23,15 +22,5 @@ public class Hero extends Character
 	}
 	
 	// TODO abstract this method; concrete implementation in concrete classes
-	public Character cloneCharacter()
-	{
-		Character c = new Hero();
-		
-		c.setName(getName());
-		c.setSpeed(getSpeed());
-		c.equip(this.armor(), true);
-		c.equip(this.weapon(), true);
-		
-		return c;
-	}
+	public abstract Character cloneCharacter();
 }

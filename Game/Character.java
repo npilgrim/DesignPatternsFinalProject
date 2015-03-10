@@ -3,22 +3,15 @@ import java.util.*;
 @SuppressWarnings("rawtypes")
 public abstract class Character implements Comparable
 {
-	private int speed;
-	private int health;
-	private int minDmg;
-	private int maxDmg;
-	private double accuracy;
+	private Stats stats;
 	private String name;
 	private boolean playable;
 	private Equipment equipment;
 	
 	public Character(boolean playable)
 	{
-		speed = 1;
-		health = 100;
-		minDmg = 20;
-		maxDmg = 40;
-		accuracy = 0.7;
+		stats = new Stats();
+		stats.setStats(100, 0, 0.7, 1, 40, 200, 20);
 		name = "Character";
 		
 		this.playable = playable;
@@ -66,30 +59,42 @@ public abstract class Character implements Comparable
 
 	public int getHealth()
 	{
-		return health + armor().getHealth();
+		return stats.getHealth() + armor().getHealth();
 	}
 	
 	public void setHealth(int health)
 	{
-		if(health > 0)
-			this.health = health;
-		else
-			health = 0;
+		stats.setHealth(health);
 	}
 	
 	public int getMinDmg()
 	{
-		return minDmg + weapon().getDamage();
+		return stats.getMinDamage() + weapon().getDamage();
+	}
+	
+	public void setMinDmg(int minDmg)
+	{
+		stats.setMinDmg(minDmg);
+	}
+	
+	public void setMaxDmg(int maxDmg)
+	{
+		stats.setMaxDmg(maxDmg);
 	}
 	
 	public int getMaxDmg()
 	{
-		return maxDmg + weapon().getDamage();
+		return stats.getMaxDamage() + weapon().getDamage();
 	}
 	
 	public double getAccuracy()
 	{
-		return accuracy;
+		return stats.getAccuracy();
+	}
+	
+	public void setAccuracy(double accuracy)
+	{
+		stats.setAccuracy(accuracy);
 	}
 	
 	public String getName()
@@ -104,13 +109,13 @@ public abstract class Character implements Comparable
 
 	public int getSpeed() 
 	{
-		return speed;
+		return stats.getSpeed();
 	}
 	
 	// for testing alone; TODO comment out when done testing
 	public void setSpeed(int speed)
 	{
-		this.speed = speed;
+		this.stats.setSpeed(speed);
 	}
 	
 	public int attack()
@@ -119,7 +124,7 @@ public abstract class Character implements Comparable
 		
 		Random r = new Random();
 		double a = r.nextDouble();
-		if(a < accuracy)
+		if(a < stats.getAccuracy())
 		{
 			damage = r.nextInt(getMaxDmg()-getMinDmg()+1) + getMinDmg();
 		}
@@ -131,15 +136,15 @@ public abstract class Character implements Comparable
 	{
 		if(that.name.equals(this.name))
 		{
-			if(that.speed == this.speed)
+			if(that.getSpeed() == getSpeed())
 			{
-				if(that.health == this.health)
+				if(that.getHealth() == getHealth())
 				{
-					if(that.minDmg == this.minDmg)
+					if(that.getMinDmg() == getMinDmg())
 					{
-						if(that.maxDmg == this.minDmg)
+						if(that.getMaxDmg() == getMaxDmg())
 						{
-							if(that.accuracy == this.accuracy)
+							if(that.getAccuracy() == getAccuracy())
 							{
 								return true;
 							}
