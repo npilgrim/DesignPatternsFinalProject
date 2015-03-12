@@ -11,7 +11,7 @@ public class Balrog extends Monster {
 		setAccuracy(0.45);
 		setMinDmg(60);
 		setMaxDmg(100);
-		setSpeed(3);
+		setSpeed(90);
 	}
 	
 	public static Balrog getBalrog()

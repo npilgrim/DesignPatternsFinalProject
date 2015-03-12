@@ -5,7 +5,7 @@ public class Mage extends Hero {
 	{
 		super();
 		setName("Mage " + getName());
-		setSpeed(5);
+		setSpeed(140);
 		setAccuracy(0.6);
 		setMinDmg(50);
 		setMaxDmg(70);

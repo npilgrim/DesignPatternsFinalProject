@@ -3,21 +3,92 @@ import java.util.*;
 @SuppressWarnings("rawtypes")
 public abstract class Character implements Comparable
 {
+	private static final int TURN_COST = 1000, RES_LIMIT = 500, THRESHOLD = 1000;
+	
 	private Stats stats;
 	private String name;
 	private boolean playable;
 	private Equipment equipment;
+	// for determining turn order
+	private int counter, reserve;
 	
 	public Character(boolean playable)
 	{
 		stats = new Stats();
-		stats.setStats(100, 0, 0.7, 1, 40, 200, 20);
+		stats.setStats(100, 0, 0.7, 100, 40, 200, 20);
 		name = "Character";
 		
 		this.playable = playable;
 		equipment = new Equipment();
+		
+		this.counter = 0;
+		this.reserve = 0;
 	}
 	
+	public int getCounter() {
+		return counter;
+	}
+	
+	public void decCounter(int c)
+	{
+		if(counter - c < 0)
+			counter = 0;
+		else
+			counter -= c;
+	}
+	
+	public void incCounter()
+	{
+		counter += stats.getSpeed() + reserve;
+		reserve = 0;
+	}
+
+	public int getReserve() {
+		return reserve;
+	}
+
+	public void setReserve(int reserve) {
+		if(reserve > RES_LIMIT)
+			reserve = RES_LIMIT;
+		else
+			this.reserve += reserve;
+	}
+	
+	public static int getBaseRes(Character[] c)
+	{
+		int big = 0;
+		
+		for(int i = 0; i < c.length; i++)
+		{
+			if(c[i].counter > c[big].counter)
+				big = i;
+		}
+		
+		if(c[big].counter-THRESHOLD < 0)
+			return 0;
+		else if(c[big].counter-THRESHOLD > RES_LIMIT)
+			return RES_LIMIT;
+		else
+			return c[big].counter-THRESHOLD;
+	}
+	
+	public static void setAllReserve(Character [] c, int base)
+	{
+		for(Character x : c)
+		{
+			if(x.counter < base)
+			{
+				x.reserve = x.counter;
+				x.counter = 0;
+			}
+			else
+			{
+				x.reserve = base;
+				x.counter -= base;
+			}
+		}
+	}
+
 	public abstract Character cloneCharacter();
 	
 	public Armor armor()
@@ -112,7 +183,6 @@ public abstract class Character implements Comparable
 		return stats.getSpeed();
 	}
 	
-	// for testing alone; TODO comment out when done testing
 	public void setSpeed(int speed)
 	{
 		this.stats.setSpeed(speed);
@@ -129,6 +199,7 @@ public abstract class Character implements Comparable
 			damage = r.nextInt(getMaxDmg()-getMinDmg()+1) + getMinDmg();
 		}
 		
+		decCounter(TURN_COST);
 		return damage;
 	}
 	

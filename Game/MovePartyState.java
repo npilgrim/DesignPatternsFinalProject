@@ -32,7 +32,8 @@ public class MovePartyState implements GameState
 				game.setState(game.getInventoryState());
 			else if(input.equalsIgnoreCase("quit"))
 				game.setState(game.getPlayAgainState());
-			//TODO display map command
+			else if(input.equalsIgnoreCase("map"))
+				game.map().displayMap();
 			else if(input.contains("pickup"))
 			{
 				int itemNum = Integer.parseInt(input.charAt(input.length()-1) + "");

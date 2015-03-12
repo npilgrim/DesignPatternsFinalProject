@@ -4,7 +4,7 @@ public class Jedi extends Hero
 	{
 		super();
 		setName("Master " + getName());
-		setSpeed(2);
+		setSpeed(110);
 		setAccuracy(0.85);
 		setMinDmg(40);
 		setMaxDmg(50);

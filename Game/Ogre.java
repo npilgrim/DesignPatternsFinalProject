@@ -8,6 +8,6 @@ public class Ogre extends Monster {
 		setHealth(200);
 		setMinDmg(50);
 		setMaxDmg(100);
-		setSpeed(1);
+		setSpeed(100);
 	}
 }

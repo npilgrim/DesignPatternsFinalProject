@@ -4,7 +4,7 @@ public class Ranger extends Hero
 	{
 		super();
 		setName(getName() + " the Ranger");
-		setSpeed(9);
+		setSpeed(170);
 		setAccuracy(0.9);
 		setMinDmg(25);
 		setMaxDmg(40);

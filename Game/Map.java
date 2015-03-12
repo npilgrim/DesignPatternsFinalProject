@@ -101,4 +101,9 @@ public class Map
 			else
 				System.out.println("You can't go that way!\n");
 	}
+	
+	public void displayMap()
+	{
+		System.out.println("Displaying the map!");
+	}
 }

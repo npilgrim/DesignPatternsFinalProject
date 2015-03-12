@@ -5,7 +5,7 @@ public class EnterpriseCaptain extends Hero {
 	{
 		super();
 		setName(getName() + ", captain of the Enterprise");
-		setSpeed(8);
+		setSpeed(135);
 		setAccuracy(0.7);
 		setMinDmg(10);
 		setMaxDmg(30);

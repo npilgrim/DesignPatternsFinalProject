@@ -5,8 +5,4 @@ public class Enums
 		POOR, SUPERIOR, ELITE;
 	}
 	
-	public static enum Monster
-	{
-		GREMLIN, OGRE, STORMTROOPER, URUKHAI;
-	}
 }

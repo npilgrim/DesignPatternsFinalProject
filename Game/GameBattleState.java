@@ -2,6 +2,8 @@ import java.util.*;
 
 public class GameBattleState implements GameState {
 
+	private static final int THRESHOLD = 1000;
+	
 	private Game game;
 	
 	public GameBattleState(Game game)
@@ -19,16 +21,12 @@ public class GameBattleState implements GameState {
 		System.out.println("Unable to move right now.");
 	}
 
-//TODO abstact loop out to use Template
 	@Override
 	public void engageBattle() 
 	{
 		boolean quit = false;
-		Random random = new Random();
-		Character[] characterOrder = setTurnOrder(game.party(), game.enemy());
-		Character target = null;
-		int option = 0, targetChoice = 0, i;
-		int damage = 0;
+		Character[] characterOrder = turnOrder(game.party(), game.enemy());
+		int i, baseRes = 0;
 		
 		System.out.println("Enemy attack! Engaging!");
 		try
@@ -42,101 +40,29 @@ public class GameBattleState implements GameState {
 		}
 		
 		while (game.enemy().size() > 0 && game.party().size() > 0 && !quit) 
-		{			
+		{	
+			baseRes = Character.getBaseRes(characterOrder);
+			
 			for (i = 0; i < characterOrder.length && game.enemy().size() > 0 && !quit; i++)
-			{
-				game.party().printState();
-				game.enemy().printState();
-				
-				if (characterOrder[i].playable() && !quit) 
-				{
-					option = displayBattleMenu(characterOrder[i].getName());
-					 
-					switch (option) 
+			{					
+				if (characterOrder[i].getCounter() >= THRESHOLD) {
+					
+					game.party().printState();
+					game.enemy().printState();
+					
+					Character.setAllReserve(characterOrder, baseRes);
+					
+					if (characterOrder[i].playable() && !quit)
 					{
-					case 1:
-						targetChoice = getTargetChoice();
-
-						target = game.enemy().getCharacter(targetChoice);
-						damage = characterOrder[i].attack();
-
-						if (damage > 0)
-						{
-							if (damage >= target.getHealth()) 
-							{
-								System.out.println(target.getName() + " has been defeated!");
-								characterDefeated(target, game.enemy());
-								characterOrder = setTurnOrder(game.party(), game.enemy());
-							} 
-							else
-							{
-								target.setHealth((target.getHealth() - damage));
-								System.out.println(characterOrder[i].getName() + " attacks " + target.getName() + " for " + damage + " points!");
-							}
-						}
-						else
-						{
-							System.out.println(characterOrder[i].getName() + "'s attack missed " + target.getName() + ".");
-						}
-						
-						try
-						{
-							Thread.sleep(500);
-						}
-						catch(InterruptedException e)
-						{
-							Thread.currentThread().interrupt();
-							e.printStackTrace();
-						}
-						
-						break;
-					
-					case 2:
-						System.out.println("You run away in shame...");
-						game.setState(game.getPlayAgainState());
-						quit = true;
-
-						break;
-					}// end switch
-					
-				} // end if playable
-				else if(!quit && game.party().size() > 0)
-				{
-					target = game.party().getCharacter(random.nextInt(game.party().size()));
-					damage = characterOrder[i].attack();
-					
-					
-					if (damage > 0) 
+						quit = processPlayerTurn(characterOrder, i);
+					} // end if playable
+					else if (!quit && game.party().size() > 0) 
 					{
-						if (damage >= target.getHealth()) 
-						{
-							System.out.println(target.getName() + " has been defeated!");
-							characterDefeated(target, game.party());
-							characterOrder = setTurnOrder(game.party(), game.enemy());
-						} 
-						else 
-						{
-							target.setHealth(target.getHealth() - damage);
-							System.out.println(characterOrder[i].getName() + " attacks " + target.getName() + " for " + damage + " points!");
-						}
-						System.out.println();
-					}
-					else
-					{
-						System.out.println(characterOrder[i].getName() + "'s attack missed " + target.getName() + ".");
-					}
-					
-					try
-					{
-						Thread.sleep(700);
-					}
-					catch(InterruptedException e)
-					{
-						Thread.currentThread().interrupt();
-						e.printStackTrace();
-					}
-					
-				} // end elseif
+						processEnemyTurn(characterOrder, i);
+					} // end elseif
+				} // end threshold if
+				else
+					characterOrder[i].incCounter();
 				
 			}// end for loop
 		} //end while loop
@@ -156,11 +82,11 @@ public class GameBattleState implements GameState {
 		}
 	}
    
-   @Override
-   public void manageInventory()
-   {
-      System.out.println("Now is not the time for that, Ash!");
-   }
+	@Override
+	public void manageInventory()
+	{
+		System.out.println("Now is not the time for that, Ash!");
+	}
 	
 	@Override
 	public void playAgain()
@@ -215,6 +141,27 @@ public class GameBattleState implements GameState {
 		return order;
 	} // end setTurnOrder
 	
+	public Character[] turnOrder(Party heroes, Party enemy)
+	{
+		Character[] order = new Character[heroes.size() + enemy.size()];		
+		
+		int i = 0;
+		
+		for(Character c : heroes)
+		{
+			order[i] = c;
+			i++;
+		}
+		
+		for(Character c : enemy)
+		{
+			order[i] = c;
+			i++;
+		}
+		
+		return order;
+	}
+	
 	public int displayBattleMenu(String name)
 	{
 		int option = -1;
@@ -252,20 +199,21 @@ public class GameBattleState implements GameState {
 		System.out.println("\nChoose your target: ");
 		System.out.println(game.enemy().printNames());
 		
-		while (targetChoice < 0) {
-			try {
-				targetChoice = Integer.parseInt(Game.kb.nextLine());
-				if (targetChoice < 0 || targetChoice > game.enemy().size()) {
-					throw new IndexOutOfBoundsException();
-				}
-			} catch (InputMismatchException i) {
-				System.out.println("Invalid target choice. Please try again.");
-			} catch (IndexOutOfBoundsException n) {
-				System.out.println("Invalid target choice. Try again.");
-			} catch (Exception e) {
-				System.out.println("Exception while choosing target: " + e);
+		try {
+			String s = Game.kb.nextLine();
+			targetChoice = Integer.parseInt(s);
+			while (targetChoice < 0 || targetChoice >= game.enemy().size()) 
+			{
+				System.out.println("Invalid target. Try again.");
+				s = Game.kb.nextLine();
+				targetChoice = Integer.parseInt(s);
 			}
+		} catch (InputMismatchException i) {
+			System.out.println("Invalid target choice. Please try again.");
+		} catch (Exception e) {
+			System.out.println("Exception while choosing target: " + e);
 		}
+		
 		return targetChoice;
 	}
 	
@@ -278,6 +226,97 @@ public class GameBattleState implements GameState {
 		{
 			if(loot[i] != null)
 				game.map().getCurrentRoom().putItem(loot[i], true);
+		}
+	}
+	
+	public boolean processPlayerTurn(Character[] characterOrder, int i)
+	{
+		boolean quit = false;
+		
+		int option = displayBattleMenu(characterOrder[i].getName());
+
+		switch (option) {
+		case 1:
+			int targetChoice = getTargetChoice();
+
+			Character target = game.enemy().getCharacter(targetChoice);
+			int damage = characterOrder[i].attack();
+
+			if (damage > 0)
+			{
+				System.out.println(characterOrder[i]
+						.getName()
+						+ " attacks "
+						+ target.getName()
+						+ " for "
+						+ damage + " points!");
+				
+				if (damage >= target.getHealth()) {
+					System.out.println(target.getName() + " has been defeated!");
+					characterDefeated(target, game.enemy());
+					characterOrder = setTurnOrder(game.party(), game.enemy());
+				} else {
+					target.setHealth((target.getHealth() - damage));
+					
+				}
+			} else {
+				System.out.println(characterOrder[i].getName()
+						+ "'s attack " + "missed "
+						+ target.getName() + ".");
+			}
+
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
+				e.printStackTrace();
+			}
+
+			break;
+
+		case 2:
+			System.out.println("You run away in shame...");
+			game.setState(game.getPlayAgainState());
+			quit = true;
+
+			break;
+		}// end switch
+		
+		return quit;
+
+	}
+	
+	public void processEnemyTurn(Character[] characterOrder, int i)
+	{
+		Random random = new Random();
+		
+		Character target = game.party().getCharacter(random.nextInt(game.party().size()));
+		int damage = characterOrder[i].attack();
+
+		if (damage > 0) 
+		{
+			if (damage >= target.getHealth()) 
+			{
+				System.out.println(target.getName() + " has been defeated!");
+				characterDefeated(target, game.party());
+				characterOrder = setTurnOrder(game.party(), game.enemy());
+			} 
+			else 
+			{
+				target.setHealth(target.getHealth() - damage);
+				System.out.println(characterOrder[i].getName() + " attacks " + target.getName() 
+						+ " for " + damage + " points!");
+			}
+			System.out.println();
+		} else {
+			System.out.println(characterOrder[i].getName() + "'s attack missed " + target.getName() + ".");
+		}
+
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+			e.printStackTrace();
 		}
 	}
 }
