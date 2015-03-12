@@ -42,14 +42,19 @@ public abstract class Character implements Comparable
 		return equipment.getWeapon();
 	}
 	
-	public Item equip(Item i)
+	public Item equip(Item i, boolean silent)
 	{
 		Item r = null;
 		
-		if(i.getType().equals("weapon"))
-			r = equipment.equipWeapon(i);
-		else
-			r = equipment.equipArmor(i);
+		if(i != null)
+		{	
+			if(i.getType().equals("weapon"))
+				r = equipment.equipWeapon(i);
+			else
+				r = equipment.equipArmor(i);
+			if(!silent)
+				System.out.println("You equipped the " + i.getName() + ".");
+		}
 		
 		return r;
 	}

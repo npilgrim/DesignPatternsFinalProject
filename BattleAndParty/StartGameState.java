@@ -1,6 +1,7 @@
 public class StartGameState implements GameState 
 {
 	private Game game;
+	private HeroPartyBuilder builder = HeroPartyBuilder.getBuilder();
 
 	public StartGameState(Game game)
 	{
@@ -9,8 +10,19 @@ public class StartGameState implements GameState
 	
 	@Override
 	public void startGame() 
-	{
-		System.out.println("Game already started. Patience, young padawan.");
+	{		
+		game.setMap(new Map());
+		
+		// for testing only
+		Party goodGuys = builder.h1()
+				.h2()
+				.h3()
+				.h4()
+				.buildParty();
+		
+		game.setParty(goodGuys);
+		
+		game.setState(game.getMoveState());
 	}
 
 	@Override

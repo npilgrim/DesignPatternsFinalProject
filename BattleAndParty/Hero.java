@@ -29,6 +29,8 @@ public class Hero extends Character
 		
 		c.setName(getName());
 		c.setSpeed(getSpeed());
+		c.equip(this.armor(), true);
+		c.equip(this.weapon(), true);
 		
 		return c;
 	}
