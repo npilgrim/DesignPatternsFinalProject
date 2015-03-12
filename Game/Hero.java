@@ -21,6 +21,5 @@ public abstract class Hero extends Character
 		}
 	}
 	
-	// TODO abstract this method; concrete implementation in concrete classes
 	public abstract Character cloneCharacter();
 }

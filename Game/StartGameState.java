@@ -13,7 +13,16 @@ public class StartGameState implements GameState
 	{		
 		game.setMap(new Map());
 		
-		// for testing only
+		System.out.println("Choose your party!");
+		try
+		{
+			Thread.sleep(2000);
+		}
+		catch (Exception e)
+		{
+			Thread.currentThread().interrupt();
+			e.printStackTrace();
+		}
 		Party goodGuys = builder.h1()
 				.h2()
 				.h3()

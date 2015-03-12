@@ -1,22 +1,18 @@
 
 public class Stats {
 	private StatC stat = new StatImp();
-	private String name;
 
 	public void takeDamage(int healthDec, int damageDec){	
 		stat.decrementDamage(damageDec);
 		stat.decrementHealth(healthDec);
 		
 	}
-	public void incrementHealth(int increase){
-		stat.incrementHealth(increase);
-	}
 	public void incrementDamage(int increase){
 		stat.incrementDamage(increase);
 	}
-	public void setStats(int health, int damage, double accuracy, int speed, int maxDamage, int maxHealth, int minDamage){
+	public void setStats(int damage, double accuracy, int speed, int maxDamage, int maxHealth, int minDamage){
 		stat.setDamage(damage);
-		stat.setHealth(health);
+		stat.setHealth(100);
 		stat.setAccuracy(accuracy);
 		stat.setSpeed(speed);
 		stat.setMaxDamage(maxDamage);
@@ -26,10 +22,6 @@ public class Stats {
 		
 	public void displayStats(){
 		System.out.println("::"+stat.display()+"\n");
-	}
-	
-	public void setHealth(int health){
-		stat.setHealth(health);
 	}
 	
 	public void setDamage(int damage){

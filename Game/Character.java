@@ -6,6 +6,7 @@ public abstract class Character implements Comparable
 	private static final int TURN_COST = 1000, RES_LIMIT = 500, THRESHOLD = 1000;
 	
 	private Stats stats;
+	private int health;
 	private String name;
 	private boolean playable;
 	private Equipment equipment;
@@ -15,7 +16,8 @@ public abstract class Character implements Comparable
 	public Character(boolean playable)
 	{
 		stats = new Stats();
-		stats.setStats(100, 0, 0.7, 100, 40, 200, 20);
+		stats.setStats(0, 0.7, 100, 40, 200, 20);
+		health = stats.getHealth();
 		name = "Character";
 		
 		this.playable = playable;
@@ -130,12 +132,15 @@ public abstract class Character implements Comparable
 
 	public int getHealth()
 	{
-		return stats.getHealth() + armor().getHealth();
+		return this.health + armor().getHealth();
 	}
 	
 	public void setHealth(int health)
 	{
-		stats.setHealth(health);
+		if(health < 0)
+			this.health = 0;
+		else
+			this.health = health;
 	}
 	
 	public int getMinDmg()

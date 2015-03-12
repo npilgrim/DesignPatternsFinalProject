@@ -22,8 +22,8 @@ public class MovePartyState implements GameState
 		if(game.map().getMonsterParty().size() == 0)
 		{
 			System.out.println(game.map().getCurrentRoomDescription());
-			System.out.println("Inventory: i\nPickup item: pickup item_number\nMove: {e, w, n, s, u, d}\n" +
-					"Quit: quit");
+			System.out.println("Inventory: i\nPickup item: pickup item_number\nDisplay map: m\n" +
+					"Move: {e, w, n, s, u, d}\nQuit: quit");
 			input = Game.kb.nextLine();
 			
 			System.out.println();
