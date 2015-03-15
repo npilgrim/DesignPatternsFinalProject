@@ -102,8 +102,29 @@ public class Map
 				System.out.println("You can't go that way!\n");
 	}
 	
+	
 	public void displayMap()
 	{
-		System.out.println("Displaying the map!");
+		//System.out.println("Displaying the map!");
+		Zone currentZone = currentRoom.getZone();
+		Room[][] currentRooms = currentZone.getRooms();
+		String ret = currentZone.getName() + "\n";
+		int i, j;
+		
+		for (i = 0; i < 3; i++)
+		{
+			for (j = 0; j < 3; j++)
+				{
+					if ( currentRooms[i][j] == currentRoom )
+						ret += "[ X ] ";
+					else
+						ret += "[   ] ";
+				}
+			
+			ret += "\n\n";
+		}
+		
+		System.out.println(ret);
+		
 	}
 }

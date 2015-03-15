@@ -52,9 +52,9 @@ public class Map
 		to.setDoor(4, new Door("UP" , from, true));
 	}
 	
-	public void getCurrentRoomEnemies()
+	public Party getMonsterParty()
 	{
-		//IMPLEMENT THIS !
+		return this.currentRoom.getMonsterParty();
 	}
 	
 	public Room getStartingRoom()
@@ -100,5 +100,10 @@ public class Map
 				currentRoom = newRoom;
 			else
 				System.out.println("You can't go that way!\n");
+	}
+	
+	public void displayMap()
+	{
+		System.out.println("Displaying the map!");
 	}
 }

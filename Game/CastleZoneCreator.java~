@@ -19,8 +19,8 @@ public class CastleZoneCreator extends ZoneCreator
 		
 		while (num1 == 1 && num2 == 1)
 		{
-			num1 = (rand.nextInt() % 2 - 0) + 1;
-			num2 = (rand.nextInt() % 2 - 0) + 1;
+			num1 = (rand.nextInt() % 2 - 0 + 1) + 0;
+			num2 = (rand.nextInt() % 2 - 0 + 1) + 0;
 		}
 		
 		rooms[num1][num2] = roomCreator.createRoom("castletogrounds");
@@ -31,10 +31,10 @@ public class CastleZoneCreator extends ZoneCreator
 		num1 = 1;
 		num2 = 1;
 		
-		while (num1 == 1 && num2 == 1 && (num1 != start_r && num2 != start_c))
+		while ((num1 == 1 && num2 == 1) || (num1 == start_r && num2 == start_c))
 		{
-			num1 = (rand.nextInt() % 2 - 0) + 1;
-			num2 = (rand.nextInt() % 2 - 0) + 1;
+			num1 = (rand.nextInt() % 2 - 0 + 1) + 0;
+			num2 = (rand.nextInt() % 2 - 0 + 1) + 0;
 		}
 		rooms[num1][num2] = roomCreator.createRoom("castletodungeon");
 		end_r = num1;

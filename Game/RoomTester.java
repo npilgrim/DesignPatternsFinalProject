@@ -25,7 +25,9 @@ public class RoomTester
 			System.out.println();
 			
 			
-			map.moveRoom(input);		
+			map.moveRoom(input);
+			
+			map.displayMap();
 				
 		}
 		

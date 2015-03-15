@@ -24,6 +24,7 @@ public class CastleZoneCreator extends ZoneCreator
 		}
 		
 		rooms[num1][num2] = roomCreator.createRoom("castletogrounds");
+		rooms[num1][num2].setZone(ret);
 		start_r = num1;
 		start_c = num2;
 		
@@ -37,6 +38,7 @@ public class CastleZoneCreator extends ZoneCreator
 			num2 = (rand.nextInt() % 2 - 0 + 1) + 0;
 		}
 		rooms[num1][num2] = roomCreator.createRoom("castletodungeon");
+		rooms[num1][num2].setZone(ret);
 		end_r = num1;
 		end_c = num2;
 		//fill in the rest
@@ -45,7 +47,10 @@ public class CastleZoneCreator extends ZoneCreator
 		for (i = 0; i < 3; i++)
 			for (j = 0; j < 3; j++)
 				if (rooms[i][j] == null)
-					rooms[i][j] = makeRandomRoom();		
+				{
+					rooms[i][j] = makeRandomRoom();
+					rooms[i][j].setZone(ret);
+				}
 		
 		ret.setRooms(rooms);
 		ret.setStartingRoom(rooms[start_r][start_c]);

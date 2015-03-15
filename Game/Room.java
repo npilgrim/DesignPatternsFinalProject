@@ -5,12 +5,24 @@ public abstract class Room
 	private Door[] doors;
 	private Inventory inventory;
 	private Party monsters;
+	private Zone zone;
 	
 	public Room(String name, String description)
 	{
 		this.name = name;
 		this.description = description;
 		this.inventory = new Inventory("room");
+		this.zone = zone;
+	}
+	
+	public Zone getZone()
+	{
+		return this.zone;
+	}
+	
+	public void setZone(Zone zone)
+	{
+		this.zone = zone;
 	}
 	
 	public String getName()
