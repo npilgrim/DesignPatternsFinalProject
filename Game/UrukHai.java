@@ -3,7 +3,7 @@ public class UrukHai extends Monster {
 
 	public UrukHai()
 	{
-		super();
+		super(false);
 		setSpeed(150);
 		setHealth(120);
 		setMaxDmg(65);

@@ -3,7 +3,7 @@ public class Gremlin extends Monster {
 	
 	public Gremlin()
 	{
-		super();
+		super(false);
 		setSpeed(160);
 		setMinDmg(10);
 		setMaxDmg(30);

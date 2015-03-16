@@ -5,9 +5,9 @@ public class Monster extends Character
 	private Random r;
 	private RandomNameGenerator nameMaker = RandomNameGenerator.getGenerator();
 	
-	public Monster()
+	public Monster(boolean boss)
 	{
-		super(false);
+		super(false, boss);
 		fillEquipment();
 		setName(nameMaker.randomName());
 	}
@@ -29,7 +29,7 @@ public class Monster extends Character
 	
 	public Character cloneCharacter()
 	{
-		Character c = new Monster();
+		Character c = new Monster(false);
 		
 		c.setName(getName());
 		c.setSpeed(getSpeed());

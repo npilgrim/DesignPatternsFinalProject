@@ -5,11 +5,17 @@ public class Party implements Iterable<Character>
 {
 	private List party;
 	private Inventory inventory;
+	private boolean bossParty = false;
 	
 	public Party()
 	{
 		party = new List();
 		inventory = new Inventory("party inventory");
+	}
+	
+	public boolean bossParty()
+	{
+		return bossParty;
 	}
 	
 	public Party(Character c1, Character c2, Character c3, Character c4)
@@ -32,6 +38,9 @@ public class Party implements Iterable<Character>
 	public void addCharacter(Character h)
 	{
 		party.add(h);
+		
+		if(h.boss())
+			this.bossParty = true;
 	}
 	
 	public int size()

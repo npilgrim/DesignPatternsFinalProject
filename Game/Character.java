@@ -9,11 +9,12 @@ public abstract class Character implements Comparable
 	private int health;
 	private String name;
 	private boolean playable;
+	private boolean boss;
 	private Equipment equipment;
 	// for determining turn order
 	private int counter, reserve;
 	
-	public Character(boolean playable)
+	public Character(boolean playable, boolean boss)
 	{
 		stats = new Stats();
 		stats.setStats(0, 0.7, 100, 40, 200, 20);
@@ -21,10 +22,16 @@ public abstract class Character implements Comparable
 		name = "Character";
 		
 		this.playable = playable;
+		this.boss = boss;
 		equipment = new Equipment();
 		
 		this.counter = 0;
 		this.reserve = 0;
+	}
+	
+	public boolean boss()
+	{
+		return this.boss;
 	}
 	
 	public int getCounter() {

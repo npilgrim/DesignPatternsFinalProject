@@ -5,6 +5,7 @@ public class GameBattleState implements GameState {
 	private static final int THRESHOLD = 1000;
 	
 	private Game game;
+	private boolean bossBattle = false;
 	
 	public GameBattleState(Game game)
 	{
@@ -27,6 +28,11 @@ public class GameBattleState implements GameState {
 		boolean quit = false;
 		Character[] characterOrder = turnOrder(game.party(), game.enemy());
 		int i, baseRes = 0;
+		
+		if(game.map().getMonsterParty().bossParty())
+		{
+			this.bossBattle = true;
+		}
 		
 		System.out.println("Enemy attack! Engaging!");
 		try
@@ -78,7 +84,31 @@ public class GameBattleState implements GameState {
 				System.out.println("Victory!");
 			}
 			
-			game.setState(game.getMoveState());
+			if(bossBattle)
+			{
+				System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n");
+				System.out.println("\t\t _   _ _____ _____ _____ _____________   __\n"
+						 + "\t\t| | | |_   _/  __ \\_   _|  _  | ___ \\ \\ / /\n"
+						 + "\t\t| | | | | | | /  \\/ | | | | | | |_/ /\\ V /\n" 
+						 + "\t\t| | | | | | | |     | | | | | |    /  \\ / \n" 
+						 + "\t\t\\ \\_/ /_| |_| \\__/\\ | | \\ \\_/ / |\\ \\  | |\n"  
+						 + "\t\t \\___/ \\___/ \\____/ \\_/  \\___/\\_| \\_| \\_/");
+				
+				
+				try
+				{
+					Thread.sleep(2000);
+				}
+				catch(Exception e)
+				{
+					Thread.currentThread().interrupt();
+					e.printStackTrace();
+				}
+				
+				game.setState(game.getPlayAgainState());
+			}
+			else
+				game.setState(game.getMoveState());
 		}
 	}
    

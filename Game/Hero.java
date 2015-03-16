@@ -3,7 +3,7 @@ public abstract class Hero extends Character
 {	
 	public Hero()
 	{
-		super(true);
+		super(true, false);
 	}
 
 	@Override

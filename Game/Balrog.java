@@ -1,11 +1,9 @@
 
 public class Balrog extends Monster {
 
-	private static Balrog boss = null;
-	
-	private Balrog()
+	public Balrog()
 	{
-		super();
+		super(true);
 		setName("Balrog of Morgoth");
 		setHealth(500);
 		setAccuracy(0.45);
@@ -13,13 +11,4 @@ public class Balrog extends Monster {
 		setMaxDmg(100);
 		setSpeed(90);
 	}
-	
-	public static Balrog getBalrog()
-	{
-		if(boss == null)
-			boss = new Balrog();
-		
-		return boss;
-	}
-	
 }

@@ -5,7 +5,7 @@ public class Stormtrooper extends Monster {
 	
 	public Stormtrooper()
 	{
-		super();
+		super(false);
 		setSpeed(180);
 		setMinDmg(10);
 		setMaxDmg(30);

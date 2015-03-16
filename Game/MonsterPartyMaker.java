@@ -18,6 +18,20 @@ public class MonsterPartyMaker
 		return monsterPartyMaker;
 	}
 	
+	public Party makeParty(String roomName)
+	{
+		Party p = null;
+		
+		if(roomName.contains("torture"))
+		{
+			p = getBossParty();
+		}
+		else
+			p = makeMonsterParty();
+		
+		return p;
+	}
+	
 	public Party makeMonsterParty()
 	{
 		Party p;
@@ -45,5 +59,25 @@ public class MonsterPartyMaker
 	public Party makeEmptyParty()
 	{
 		return new Party();
+	}
+	
+	public Party getBossParty()
+	{
+		Party boss = new Party();
+		
+		Random r = new Random();
+		int x = r.nextInt(2);
+		
+		switch(x)
+		{
+			case 0:
+				boss.addCharacter(new WitchKingBoss());
+				break;
+			case 1:
+				boss.addCharacter(new Balrog());
+				break;
+		}
+		
+		return boss;
 	}
 }

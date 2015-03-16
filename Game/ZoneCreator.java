@@ -35,7 +35,7 @@ public abstract class ZoneCreator
 			for (j = 0; j < 3; j++)
 			{
 
-				rooms[i][j].setMonsterParty(monsterMaker.makeMonsterParty());
+				rooms[i][j].setMonsterParty(monsterMaker.makeParty(rooms[i][j].getName()));
 			}
 	}
 	
