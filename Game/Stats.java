@@ -28,6 +28,9 @@ public class Stats {
 		stat.setDamage(damage);
 	}
 	
+   public void setHealth(int health){
+      stat.setHealth(health);
+    }
 	
 	public int getDamage(){
 		return stat.getDamage();
