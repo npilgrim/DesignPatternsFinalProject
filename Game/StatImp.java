@@ -9,6 +9,18 @@ public class StatImp implements StatC {
    private int maxHealth;
    private int minDamage;
 
+   private static StatImp uniqueStat = null;
+
+   private StatImp(){} // stubbed out ctor
+
+   public static StatImp getStatImp()
+   {
+	if(uniqueStat == null)
+		uniqueStat = new StatImp();
+
+	return uniqueStat;
+   }
+
    @Override
    public void incrementHealth(int increase) {
       if(increase>0){

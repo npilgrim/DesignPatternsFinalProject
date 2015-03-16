@@ -1,6 +1,6 @@
 
 public class Stats {
-	private StatC stat = new StatImp();
+	private StatC stat = StatImp.getStatImp();
 
 	public void takeDamage(int healthDec, int damageDec){	
 		stat.decrementDamage(damageDec);
