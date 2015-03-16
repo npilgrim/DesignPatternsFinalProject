@@ -65,7 +65,7 @@ public class StatImp implements StatC {
    @Override
    public String display() {
    	
-      return "HP: ["+health+"],dmg: ["+damage+"],acc: ["+accuracy+"],spd: ["+speed+"]";
+      return "HP:["+health+"] DMG:["+damage+"]";
    }
 //   @Override
 //   public Sting getDescription(){
