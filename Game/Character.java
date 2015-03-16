@@ -192,6 +192,11 @@ public abstract class Character implements Comparable
 	{
 		this.stats.setSpeed(speed);
 	}
+   
+   public void getStats()
+   {
+		this.stats.displayStats();
+	}
 	
 	public int attack()
 	{	

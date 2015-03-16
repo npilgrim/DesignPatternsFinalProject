@@ -28,7 +28,7 @@ public class Stats {
 	}
 		
 	public void displayStats(){
-		System.out.println(""+name+"::"+stat.display()+"\n");
+		System.out.println("::"+stat.display());
 	}
 	
 	public void setHealth(int health){
